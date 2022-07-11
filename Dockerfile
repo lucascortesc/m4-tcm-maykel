@@ -1,11 +1,15 @@
-FROM node:16.15.1
+FROM node:16
+
+USER root
 
 WORKDIR /app
 
-COPY "package.json" .
+ENV PORT 8080
 
-RUN yarn
+EXPOSE 8080
 
 COPY . .
+
+RUN yarn
 
 CMD ["yarn", "dev"]

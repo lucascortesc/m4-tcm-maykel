@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  api_express:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      db_health:
+        condition: service_healthy
+
+  db_health:
+    image: postgres:14
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db_health
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d db_health"]
+      interval: 10s
+      timeout: 15s
+      retries: 5
+      start_period: 30s
