@@ -17,6 +17,10 @@ export const authorization = (req: Request, res: Response, next: NextFunction) =
       throw new AppError("Invalid token", 401);
     }
 
+    if (!decoded.isActive) {
+      throw new AppError("User inactive");
+    }
+
     req.user = {
       id: decoded.id,
       isActive: decoded.isActive,
