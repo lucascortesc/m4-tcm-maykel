@@ -14,12 +14,13 @@ const createHealthAgentService = async ({
   const healthAgent = healthAgentRepository.create({
     name,
     email,
+    isActive: true,
     password: hashedPassword,
   });
 
   await healthAgentRepository.save(healthAgent);
 
-  return healthAgent;
+  return { ...healthAgent, password: undefined };
 };
 
 export default createHealthAgentService;
