@@ -13,4 +13,7 @@ export class Agent {
 
   @Column()
   password: string;
+
+  @Column()
+  isActive: boolean;
 }
