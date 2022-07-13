@@ -1,10 +1,17 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { v4 as uuid } from "uuid";
+import { Agent } from "./healthAgent.entity";
 
 @Entity("address")
 export class Address {
-  @PrimaryColumn("uuid")
-  readonly id: string;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
   @Column({
     nullable: false,
@@ -28,6 +35,12 @@ export class Address {
     type: "int",
   })
   number: number;
+
+  @OneToOne((_type) => Agent, {
+    eager: true,
+  })
+  @JoinColumn()
+  agent: Agent;
 
   constructor() {
     if (!this.id) {
