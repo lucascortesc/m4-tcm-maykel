@@ -1,5 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  OneToOne,
+  JoinColumn,
+} from "typeorm";
 import { v4 as uuid } from "uuid";
+import { Address } from "./address.entity";
 
 @Entity("family")
 export class Family {
@@ -11,6 +19,12 @@ export class Family {
     nullable: false,
   })
   name: string;
+
+  @OneToOne((type) => Address, {
+    eager: true,
+  })
+  @JoinColumn()
+  address: Address;
 
   constructor() {
     if (!this.id) {
