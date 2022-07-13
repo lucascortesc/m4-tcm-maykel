@@ -23,7 +23,7 @@ const loginHealthAgentService = async (email: string, password: string) => {
     { email: email, isActive: agents.isActive },
     process.env.SECRET_KEY as string,
     {
-      expiresIn: 300,
+      expiresIn: "24h",
     }
   );
 
