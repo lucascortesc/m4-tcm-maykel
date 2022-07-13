@@ -11,8 +11,9 @@ const listHealthAgentService = async (id: string): Promise<IHealthAgent> => {
   if (!agents) {
     throw new AppError("User does not exists", 400);
   }
+  const newAgent: any = { ...agents };
 
-  return { ...agents, password: undefined };
+  return { ...newAgent, password: undefined };
 };
 
 export default listHealthAgentService;
