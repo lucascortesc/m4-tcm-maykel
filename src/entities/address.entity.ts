@@ -2,7 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
@@ -36,10 +36,10 @@ export class Address {
   })
   number: number;
 
-  @OneToOne((_type) => Agent, {
+  @ManyToOne((_type) => Agent, {
     eager: true,
   })
-  @JoinColumn()
+  @JoinColumn({ name: "agent_id" })
   agent: Agent;
 
   constructor() {

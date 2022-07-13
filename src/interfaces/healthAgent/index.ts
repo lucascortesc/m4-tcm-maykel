@@ -8,6 +8,6 @@ export interface IHealthAgent {
   id: string;
   email: string;
   name: string;
-  isActive: boolean;
+  isactive: boolean;
   password: string;
 }

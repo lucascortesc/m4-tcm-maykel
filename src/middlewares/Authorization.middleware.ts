@@ -23,12 +23,12 @@ export const authorization = (
       if (error) {
         throw new AppError("Invalid token", 401);
       }
-      if (!decoded.isActive) {
+      if (!decoded.isactive) {
         throw new AppError("User inactive");
       }
 
       req.userId = decoded.id;
-      req.userIsActive = decoded.isActive;
+      req.userIsActive = decoded.isactive;
       next();
     }
   );

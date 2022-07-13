@@ -20,7 +20,7 @@ const loginHealthAgentService = async (email: string, password: string) => {
     throw new AppError("Invalid credentials.");
   }
   const token = jwt.sign(
-    { email: email, isActive: agents.isActive },
+    { isactive: agents.isactive, id: agents.id },
     process.env.SECRET_KEY as string,
     {
       expiresIn: "24h",

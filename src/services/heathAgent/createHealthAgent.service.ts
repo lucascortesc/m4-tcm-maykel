@@ -21,7 +21,7 @@ const createHealthAgentService = async ({
   const healthAgent = healthAgentRepository.create({
     name,
     email,
-    isActive: true,
+    isactive: true,
     password: hashedPassword,
   });
 
