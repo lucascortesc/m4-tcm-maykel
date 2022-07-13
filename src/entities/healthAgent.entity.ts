@@ -2,8 +2,8 @@ import { Entity, Column, PrimaryGeneratedColumn, Unique } from "typeorm";
 @Entity("agents")
 @Unique(["email"])
 export class Agent {
-  @PrimaryGeneratedColumn("increment")
-  id: number;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
   @Column({ length: 158 })
   name: string;
