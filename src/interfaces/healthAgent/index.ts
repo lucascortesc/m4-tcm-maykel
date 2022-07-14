@@ -11,3 +11,10 @@ export interface IHealthAgent {
   isactive: boolean;
   password: string;
 }
+export interface IUpdateHealthAgent {
+  id?: string;
+  email?: string;
+  name?: string;
+  isactive?: boolean;
+  password?: string;
+}
