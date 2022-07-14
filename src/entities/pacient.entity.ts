@@ -1,20 +1,13 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  Unique,
-} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, Unique, JoinColumn } from "typeorm";
 import { Family } from "./family.entity";
 
 @Entity("pacient")
 @Unique(["cpf"])
 export class Pacient {
-
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ length: 11})
+  @Column({ length: 11 })
   cpf: string;
 
   @Column({
@@ -33,14 +26,16 @@ export class Pacient {
   age: number;
 
   @Column({
-    length: 11
+    length: 11,
   })
   tel: string;
 
   @Column({ nullable: false })
-  isOwner: boolean;
+  is_owner: boolean;
 
-  @ManyToOne(() => Family)
+  @ManyToOne(() => Family, {
+    eager: true,
+  })
+  @JoinColumn({ name: "family_id" })
   family: Family;
-
 }

@@ -1,5 +1,3 @@
-import { IHealthAgent } from "../healthAgent";
-
 export interface ICreateAddress {
   state: string;
   city: string;
