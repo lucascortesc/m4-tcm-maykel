@@ -23,6 +23,7 @@ export class Family {
   @OneToOne((type) => Address, {
     eager: true,
   })
+  @JoinColumn({ name: "address_id" })
   address: Address;
 
   constructor() {
