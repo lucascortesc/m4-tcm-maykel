@@ -10,7 +10,7 @@ export const handleAppErrorMiddleware = (error: Error, req: Request, res: Respon
 
   if (error instanceof Error) {
     return res.status(400).json({
-      error: "Invalid id type",
+      error: error.message,
     });
   }
 
