@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { v4 as uuid } from "uuid"
 
 import { Agent } from "./healthAgent.entity";
+import { Address } from "./address.entity";
 
 @Entity()
 export class HomeVisit {
@@ -29,4 +30,8 @@ export class HomeVisit {
     @JoinColumn({ name: "agent_id" })
     agent_id: Agent
     
+    @ManyToOne(() => Address, (address) => address.id)
+    @JoinColumn({ name: "address_id" })
+    address_id: Address
+
 }
