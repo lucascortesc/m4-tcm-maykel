@@ -8,7 +8,7 @@ import { addressSchema } from "../validation";
 
 const addressRoutes = Router();
 
-addressRoutes.post("", schemaValidation(addressSchema), authorization, verifyAddress, createAddress);
+addressRoutes.post("", schemaValidation(addressSchema), authorization, createAddress);
 addressRoutes.get("/:id", listAddress);
 
 export default addressRoutes;

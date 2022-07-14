@@ -12,5 +12,7 @@ const verifyAddress = async (req: Request, res: Response, next: NextFunction) =>
   if (!findAddress) {
     throw new AppError("Address not found", 404);
   }
+
+  next();
 };
 export default verifyAddress;
