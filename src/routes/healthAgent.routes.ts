@@ -1,19 +1,19 @@
 import { Router } from "express";
-import { expressYupMiddleware } from "express-yup-middleware";
 import createHealthAgentController from "../controllers/healthAgent/createHealthAgent.controller";
+import deleteHealthAgentController from "../controllers/healthAgent/deleteHealthAgent.contoller";
 import listHealthAgentController from "../controllers/healthAgent/listHealthAgent.controller";
 import loginHealthAgentController from "../controllers/healthAgent/loginHealthAgent.controller";
+import updateHealthAgentController from "../controllers/healthAgent/updateHealthAgent.controller";
 import { authorization } from "../middlewares/Authorization.middleware";
-import { agentSchema } from "../validation";
+import { schemaValidation } from "../middlewares/schemaValidation.middleware";
+import { agentSchema, updateAgentSchema } from "../validation";
 
 const agentRoutes = Router();
 
-agentRoutes.post(
-  "/register",
-  expressYupMiddleware({ schemaValidator: agentSchema }),
-  createHealthAgentController
-);
+agentRoutes.post("/register", schemaValidation(agentSchema), createHealthAgentController);
 agentRoutes.get("/agent", authorization, listHealthAgentController);
 agentRoutes.post("/login", loginHealthAgentController);
+agentRoutes.delete("/agent", authorization, deleteHealthAgentController);
+agentRoutes.patch("/agent", authorization, schemaValidation(updateAgentSchema), updateHealthAgentController);
 
 export default agentRoutes;

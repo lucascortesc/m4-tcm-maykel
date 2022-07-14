@@ -8,6 +8,12 @@ export const handleAppErrorMiddleware = (error: Error, req: Request, res: Respon
     });
   }
 
+  if (error instanceof Error) {
+    return res.status(400).json({
+      error: error.message,
+    });
+  }
+
   return res.status(500).json({
     error: "Internal server error",
   });

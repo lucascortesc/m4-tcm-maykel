@@ -1,10 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Agent } from "./healthAgent.entity";
 
@@ -15,7 +9,7 @@ export class Address {
 
   @Column({
     nullable: false,
-    length: 158,
+    length: 2,
   })
   state: string;
 
@@ -36,10 +30,13 @@ export class Address {
   })
   number: number;
 
-  @OneToOne((_type) => Agent, {
+  @Column()
+  street: string;
+
+  @ManyToOne(() => Agent, {
     eager: true,
   })
-  @JoinColumn()
+  @JoinColumn({ name: "agent_id" })
   agent: Agent;
 
   constructor() {

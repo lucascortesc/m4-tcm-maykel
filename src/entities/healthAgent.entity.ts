@@ -1,4 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany } from "typeorm";
+import { HomeVisit } from "./homeVisit.entity";
+import { Address } from "./address.entity";
+
 @Entity("agents")
 @Unique(["email"])
 export class Agent {
@@ -15,5 +18,8 @@ export class Agent {
   password: string;
 
   @Column()
-  isActive: boolean;
+  isactive: boolean;
+
+  @OneToMany(() => Address, (Address) => Address.agent)
+  address: Address[];
 }
