@@ -1,5 +1,6 @@
 import { Router } from "express";
 import updateHomeVisitController from "../controllers/homeVisit/updateHomeVisit.controller";
+import deleteHomeVisitController from "../controllers/homeVisit/deleteHomeVisit.controller"
 import { authorization } from "../middlewares/Authorization.middleware";
 import verifyHomeVisit from "../middlewares/verifyHomeVisit.middleware";
 
@@ -11,3 +12,9 @@ homeVisitRoutes.patch(
   verifyHomeVisit,
   updateHomeVisitController
 );
+homeVisitRoutes.delete(
+  "/:id",
+  authorization,
+  verifyHomeVisit,
+  deleteHomeVisitController
+)

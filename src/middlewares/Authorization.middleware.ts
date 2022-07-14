@@ -11,7 +11,7 @@ export const authorization = (
   let token = req.headers.authorization;
 
   if (!token) {
-    throw new AppError("Missing token", 401);
+     new AppError("Missing token", 401);
   }
 
   const splitToken = token.split(" ");
