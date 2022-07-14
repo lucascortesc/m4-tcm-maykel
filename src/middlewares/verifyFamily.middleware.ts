@@ -16,5 +16,6 @@ const verifyFamily = async (
   if (!findFamily) {
     throw new AppError("Family not found");
   }
+  next();
 };
 export default verifyFamily;
