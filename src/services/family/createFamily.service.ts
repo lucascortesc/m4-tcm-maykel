@@ -18,13 +18,14 @@ export const createFamilyService = async ({
   const findAddress = await addressRepository.findOneBy({
     id: address_id,
   });
+
   if (!findAddress) {
     throw new AppError("Address cannot be null", 400);
   }
 
-  const newFamily = familyRepository.save({
+  const newFamily = await familyRepository.save({
     name,
-    address_id: findAddress,
+    address_id: findAddress.id,
   });
 
   return newFamily;
