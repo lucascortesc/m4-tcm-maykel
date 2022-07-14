@@ -1,7 +1,7 @@
 import express from "express";
 import "express-async-errors";
 import { handleAppErrorMiddleware } from "./middlewares/handleAppError.middleware";
-import addressRoutes from "./routes/adress.routes";
+import addressRoutes from "./routes/address.routes";
 import familyRoutes from "./routes/family.routes";
 import agentRoutes from "./routes/healthAgent.routes";
 
