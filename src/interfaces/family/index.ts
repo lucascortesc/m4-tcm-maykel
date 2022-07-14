@@ -1,3 +1,5 @@
+import { Address } from "../../entities/address.entity";
+
 export interface iFamily {
   name: string;
 }
@@ -9,4 +11,10 @@ export interface iCreateFamily extends iFamily {
 export interface iUpdateFamily {
   name?: string;
   address_id?: string;
+}
+
+export interface IRequestFamily {
+  name: string;
+  id: string;
+  address_id: string;
 }

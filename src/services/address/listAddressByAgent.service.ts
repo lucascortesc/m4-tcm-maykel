@@ -25,6 +25,7 @@ export const listAddressByAgentService = async (agentId: string) => {
       street: el.street,
       number: el.number,
       cep: el.cep,
+      agentId: agent.id,
     };
   });
 
