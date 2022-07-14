@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany } from "typeorm";
+import { HomeVisit } from "./homeVisit.entity";
 @Entity("agents")
 @Unique(["email"])
 export class Agent {
@@ -13,4 +14,7 @@ export class Agent {
 
   @Column()
   password: string;
+
+  @Column()
+  isactive: boolean;
 }
