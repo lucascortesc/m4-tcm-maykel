@@ -16,5 +16,6 @@ const verifyHomeVisit = async (
   if (!findHomeVisit) {
     throw new AppError("Visit not found");
   }
+  next();
 };
 export default verifyHomeVisit;
