@@ -4,6 +4,7 @@ import { handleAppErrorMiddleware } from "./middlewares/handleAppError.middlewar
 import addressRoutes from "./routes/address.routes";
 import familyRoutes from "./routes/family.routes";
 import agentRoutes from "./routes/healthAgent.routes";
+import homeVisitRoutes from "./routes/homeVisit.routes";
 import { pacientRoutes } from "./routes/pacient.routes";
 
 const app = express();
@@ -13,6 +14,7 @@ app.use("", agentRoutes);
 app.use("/family", familyRoutes);
 app.use("/address", addressRoutes);
 app.use("/pacient", pacientRoutes);
+app.use("/visits", homeVisitRoutes);
 
 app.use(handleAppErrorMiddleware);
 
