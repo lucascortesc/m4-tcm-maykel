@@ -14,12 +14,7 @@ export const listPacientByAgentService = async (agentId: string): Promise<IListP
     throw new AppError("Agent does not exist", 404);
   }
 
-  const findPacients = await pacientRepository
-    .createQueryBuilder("pacient")
-    .leftJoinAndSelect("pacient.family", "family")
-    .leftJoinAndSelect("family.address", "address")
-    .leftJoinAndSelect("address.agent", "agent")
-    .getMany();
+  const findPacients = await pacientRepository.find();
 
   const filtredPacients: IListPacient[] = [];
 
@@ -35,7 +30,6 @@ export const listPacientByAgentService = async (agentId: string): Promise<IListP
         is_owner: pacient.is_owner,
         family_id: pacient.family.id,
         address_id: pacient.family.address.id,
-        agent_id: pacient.family.address.agent.id,
       };
 
       filtredPacients.push(formatedPacient);
