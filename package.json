@@ -6,6 +6,8 @@
   "author": "lucascortesc <ccordeiro.lucas@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
+    "start": "node build/src/server.js",
     "dev": "ts-node-dev src/server.ts",
     "typeorm": "cross-env NODE_ENV=migration typeorm-ts-node-commonjs",
     "typeormRun": "cross-env NODE_ENV=migration typeorm-ts-node-commonjs migration:run -d src/data-source.ts",
