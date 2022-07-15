@@ -20,7 +20,6 @@ export const createPacientService = async (
   if (!findFamily) {
     throw new AppError("Family not found", 404);
   }
-
   const addressId = findFamily.address.id;
 
   const address = await addressRepository.findOneBy({ id: addressId });
