@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { createPacient } from "../controllers/pacient/createPacient.controller";
 import { listPacientByAgent } from "../controllers/pacient/listPacientByAgent.controller";
-import { authorization } from "../middlewares/Authorization.middleware";
+import { authorization } from "../middlewares/authorization.middleware";
 import { schemaValidation } from "../middlewares/schemaValidation.middleware";
 import { pacientSchema } from "../validation";
 

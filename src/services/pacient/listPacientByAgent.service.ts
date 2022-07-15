@@ -1,43 +1,46 @@
-import { isDataView } from "util/types";
 import AppDataSource from "../../data-source";
-import { Address } from "../../entities/address.entity";
-import { Family } from "../../entities/family.entity";
 import { Agent } from "../../entities/healthAgent.entity";
 import { Pacient } from "../../entities/pacient.entity";
 import { AppError } from "../../errors/appError";
+import { IListPacient } from "../../interfaces/pacient";
 
-export const listPacientByAgentService = async (agentId: string) => {
+export const listPacientByAgentService = async (agentId: string): Promise<IListPacient[]> => {
   const pacientRepository = AppDataSource.getRepository(Pacient);
-  const familyRepository = AppDataSource.getRepository(Family);
-  const addressRepository = AppDataSource.getRepository(Address);
-  const agentsRepository = AppDataSource.getRepository(Agent);
+  const agentRepository = AppDataSource.getRepository(Agent);
 
-  const agent = await agentsRepository.findOneBy({ id: agentId });
+  const agent = await agentRepository.findOneBy({ id: agentId });
 
   if (!agent) {
     throw new AppError("Agent does not exist", 404);
   }
 
-  const addresses = await addressRepository.find({
-    where: {
-      agent: agent,
-    },
-  });
+  const findPacients = await pacientRepository
+    .createQueryBuilder("pacient")
+    .leftJoinAndSelect("pacient.family", "family")
+    .leftJoinAndSelect("family.address", "address")
+    .leftJoinAndSelect("address.agent", "agent")
+    .getMany();
 
-  if (!addresses) {
-    throw new AppError("No address found");
-  }
-  const families = addresses.map(async (address) => {
-    const family = await familyRepository.findOneBy({ address: address });
+  const filtredPacients: IListPacient[] = [];
 
-    if (family) {
-      const foundFamily = {
-        id: family.id,
-        name: family.name,
-        address_id: address.id,
+  findPacients.forEach((pacient) => {
+    if (pacient.family.address.agent.id === agentId) {
+      const formatedPacient = {
+        id: pacient.id,
+        name: pacient.name,
+        last_name: pacient.last_name,
+        cpf: pacient.cpf,
+        age: pacient.age,
+        tel: pacient.tel,
+        is_owner: pacient.is_owner,
+        family_id: pacient.family.id,
+        address_id: pacient.family.address.id,
+        agent_id: pacient.family.address.agent.id,
       };
-      return foundFamily;
+
+      filtredPacients.push(formatedPacient);
     }
   });
-  return await Promise.all(families);
+
+  return filtredPacients;
 };

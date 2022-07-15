@@ -13,7 +13,7 @@ export interface iUpdateFamily {
   address_id?: string;
 }
 
-export interface IRequestFamily {
+export interface IResponseFamily {
   name: string;
   id: string;
   address_id: string;
