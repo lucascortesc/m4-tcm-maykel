@@ -18,6 +18,7 @@ export const listAddressByAgentService = async (agentId: string) => {
   });
 
   const withoutAgent = addresses.map((el) => {
+    
     return {
       id: el.id,
       state: el.state,
@@ -25,8 +26,9 @@ export const listAddressByAgentService = async (agentId: string) => {
       street: el.street,
       number: el.number,
       cep: el.cep,
-      agent_id: agent.id,
+      agentId: agent.id,
     };
+    
   });
 
   return withoutAgent;

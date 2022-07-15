@@ -49,7 +49,7 @@ export const createAddressService = async (
     cep: newAddress.cep,
     number: newAddress.number,
     street: newAddress.street,
-    agent_id: newAddress.agent.id,
+    agentId: newAddress.agent.id,
   };
 
   return returnAddress;

@@ -3,7 +3,10 @@ import { Address } from "../../entities/address.entity";
 import { Agent } from "../../entities/healthAgent.entity";
 import { HomeVisit } from "../../entities/homeVisit.entity";
 import { AppError } from "../../errors/appError";
-import { ICreateHomeVisit, IHomeVisit } from "../../interfaces/homeVisit";
+import {
+  ICreateHomeVisit,
+  IHomeVisit,
+} from "../../interfaces/homeVisit";
 
 export const createHomeVisitService = async (
   agent_id: string,
@@ -24,10 +27,6 @@ export const createHomeVisitService = async (
 
   if (!address) {
     throw new AppError("address does not exist.", 404);
-  }
-
-  if (address.agent.id !== agent_id) {
-    throw new AppError("Agent does not have access to address", 403);
   }
 
   const newHomeVisit = homeVisitRepository.create({

@@ -27,15 +27,15 @@ export const updatePacientService = async (
   const pacientAgentId = findPacientAgent[0].family.address.agent.id;
 
   if (pacientAgentId !== agentId) {
-    throw new AppError("Agent does not have  to pacient", 401);
+    throw new AppError("Agent does not have access to pacient");
   }
 
   if (data.id) {
-    throw new AppError("You can't change the pacient id", 403);
+    throw new AppError("You can't change the pacient id");
   }
 
   if (data.family_id) {
-    throw new AppError("You can't change the family id from pacient", 403);
+    throw new AppError("You can't change the family id from pacient");
   }
 
   await pacientRepository.update(pacientId, data);

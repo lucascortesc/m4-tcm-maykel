@@ -11,10 +11,27 @@ import { visitsSchema } from "../validation";
 
 const homeVisitRoutes = Router();
 
-homeVisitRoutes.post("", schemaValidation(visitsSchema), authorization, createHomeVisitController);
-homeVisitRoutes.patch("/:id", authorization, verifyHomeVisit, updateHomeVisitController);
-homeVisitRoutes.delete("/:id", authorization, verifyHomeVisit, deleteHomeVisitController);
+homeVisitRoutes.post(
+  "",
+  schemaValidation(visitsSchema),
+  authorization,
+  createHomeVisitController
+);
+homeVisitRoutes.patch(
+  "/:id",
+  authorization,
+  verifyHomeVisit,
+  updateHomeVisitController
+);
+homeVisitRoutes.delete(
+  "/:id",
+  authorization,
+  verifyHomeVisit,
+  deleteHomeVisitController
+);
+
 homeVisitRoutes.get("", authorization, listHomeVisitsController);
+
 homeVisitRoutes.get("/:id", authorization, listOneVisitController);
 
 export default homeVisitRoutes;

@@ -5,7 +5,8 @@ import AppDataSource from "../../data-source";
 import { AppError } from "../../errors/appError";
 import { IResponseFamily } from "../../interfaces/family";
 
-export const listAllFamiliesService = async (agentId: string): Promise<IResponseFamily[]> => {
+export const listAllFamiliesService = async (agentId: string):Promise<IResponseFamily[]> => {
+
   const agentsRepository = AppDataSource.getRepository(Agent);
   const familyRepository = AppDataSource.getRepository(Family);
 
@@ -16,17 +17,20 @@ export const listAllFamiliesService = async (agentId: string): Promise<IResponse
   }
 
   const findFamilies = await familyRepository.find();
-
-  const filterFamilies: IResponseFamily[] = [];
+  if (!findFamilies) {
+    throw new AppError("No family found");
+  }
+  const filterFamilies:IResponseFamily[] = []
 
   findFamilies.forEach((family) => {
+
     if (family.address.agent.id === agentId) {
-      const formatedFamily = {
+        const formatedFamily = {
         id: family.id,
         name: family.name,
         address_id: family.address.id,
       };
-      filterFamilies.push(formatedFamily);
+      filterFamilies.push(formatedFamily)
     }
   });
 
