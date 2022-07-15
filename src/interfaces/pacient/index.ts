@@ -24,3 +24,14 @@ export interface IListPacient {
   address_id: string;
   agent_id: string;
 }
+
+export interface IUpdatePacient {
+  id?: string;
+  cpf?: string;
+  name?: string;
+  last_name?: string;
+  age?: number;
+  tel?: string;
+  is_owner?: boolean;
+  family_id?: string;
+}
