@@ -27,7 +27,7 @@ export const listHomeVisitsService = async (
   if (!homeVisits) {
     throw new AppError("Home visits not found", 404);
   }
-  console.log(homeVisits);
+
   const returnHomeVisits = {
     id: homeVisits.id,
     status: homeVisits.status,
