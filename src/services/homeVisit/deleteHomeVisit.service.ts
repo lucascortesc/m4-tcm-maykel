@@ -6,10 +6,11 @@ import { AppError } from "../../errors/appError"
 const deleteHomeVisitService = async (id: string, userId: string) => {
     const getVisitsRepo = AppDataSource.getRepository(HomeVisit)
     const findVisit = await getVisitsRepo.findOneBy({ id: id })
-
+    
     if (!findVisit) {
         throw new AppError("Visit not found", 404)
     }
+
 
     if (findVisit.agent_id.id !== userId) {
         throw new AppError("Agent does not have access to visit", 401)

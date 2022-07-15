@@ -11,35 +11,31 @@ const updateHomeVisitService = async (
 ): Promise<IHomeVisit> => {
   const homeVisitRepository = AppDataSource.getRepository(HomeVisit);
   const addressRepository = AppDataSource.getTreeRepository(Address)
+  console.log(data)
 
-  
+  if (!homeVisitRepository) {
+    throw new AppError("teste", 400)
+  }
+
   if (data.id) {
     throw new AppError("You can't change the home visit id.");
   }
-
-  console.log("Parei depois do data.id")
 
   const homeVisit = await homeVisitRepository.findOneBy({ id: id });
 
   if (!homeVisit) {
     throw new AppError("Visit not found", 404)
   }
-
-  console.log("Parei depois do !homevisit")
-
-  if (homeVisit.agent_id.id !== userId) {
-    throw new AppError("Agent does not have access to visit", 401)
-  }
-
-  console.log("Parei depois do id === id")
-
+  
   const findAddress = await addressRepository.findOneBy({ id: homeVisit.address_id.id })
-
+  
   if (!findAddress) {
     throw new AppError("Address not found", 404)
   }
 
-  console.log("Parei depois do !findAddress")
+  if (findAddress.agent.id !== userId) {
+    throw new AppError("Agent does not have access to address", 401)
+  }
 
   await homeVisitRepository.update(id, data);
 
