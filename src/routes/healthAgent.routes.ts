@@ -4,7 +4,7 @@ import deleteHealthAgentController from "../controllers/healthAgent/deleteHealth
 import listHealthAgentController from "../controllers/healthAgent/listHealthAgent.controller";
 import loginHealthAgentController from "../controllers/healthAgent/loginHealthAgent.controller";
 import updateHealthAgentController from "../controllers/healthAgent/updateHealthAgent.controller";
-import { authorization } from "../middlewares/Authorization.middleware";
+import { authorization } from "../middlewares/authorization.middleware";
 import { schemaValidation } from "../middlewares/schemaValidation.middleware";
 import { agentSchema, updateAgentSchema } from "../validation";
 
