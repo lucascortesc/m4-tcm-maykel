@@ -11,12 +11,7 @@ const familyRoutes = Router();
 
 familyRoutes.post("", authorization, createFamilyController);
 
-familyRoutes.delete(
-  "/:id",
-  authorization,
-  verifyFamily,
-  deleteFamilyController
-);
+familyRoutes.delete("/:id", authorization, verifyFamily, deleteFamilyController);
 familyRoutes.get("/:id", authorization, verifyFamily, listOneFamilyController);
 familyRoutes.patch("/:id", authorization, verifyFamily, updateFamilyController);
 
