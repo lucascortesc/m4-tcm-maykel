@@ -4,7 +4,7 @@ import { createFamilyController } from "../controllers/family/createFamily.contr
 import deleteFamilyController from "../controllers/family/deleteFamily.controller";
 import listOneFamilyController from "../controllers/family/listOneFamily.controller";
 import updateFamilyController from "../controllers/family/updateFamily.controller";
-import { authorization } from "../middlewares/authorization.middleware";
+import { authorization } from "../middlewares/Authorization.middleware";
 import verifyFamily from "../middlewares/verifyFamily.middleware";
 
 const familyRoutes = Router();
