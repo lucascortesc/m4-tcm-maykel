@@ -22,7 +22,6 @@ export interface IListPacient {
   is_owner: boolean;
   family_id: string;
   address_id: string;
-  agent_id: string;
 }
 
 export interface IUpdatePacient {
