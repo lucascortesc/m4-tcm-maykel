@@ -3,7 +3,8 @@ import deleteFamilyService from "../../services/family/deleteFamily.service";
 
 const deleteFamilyController = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const deleted = await deleteFamilyService(id);
+  const { userId } = req
+  const deleted = await deleteFamilyService(id, userId);
 
   return res.status(200).json({ message: deleted });
 };
