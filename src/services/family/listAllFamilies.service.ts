@@ -1,35 +1,38 @@
-import { Address } from "../../entities/address.entity"
-import { Agent } from "../../entities/healthAgent.entity"
-import { Family } from "../../entities/family.entity"
-import AppDataSource from "../../data-source"
-import { AppError } from "../../errors/appError"
+import { Address } from "../../entities/address.entity";
+import { Agent } from "../../entities/healthAgent.entity";
+import { Family } from "../../entities/family.entity";
+import AppDataSource from "../../data-source";
+import { AppError } from "../../errors/appError";
+import { IResponseFamily } from "../../interfaces/family";
 
+export const listAllFamiliesService = async (agentId: string):Promise<IResponseFamily[]> => {
 
-export const listAllFamiliesService = async (agentId:string)=>{
+  const agentsRepository = AppDataSource.getRepository(Agent);
+  const familyRepository = AppDataSource.getRepository(Family);
 
-    const addressRepository = AppDataSource.getRepository(Address)
-    const agentsRepository = AppDataSource.getRepository(Agent)
-    const familyRepository = AppDataSource.getRepository(Family)
-    
-    const agent = await agentsRepository.findOneBy({id:agentId})
-    
-    if (!agent){
-        
-        throw new AppError("Agent does not exist")
+  const agent = await agentsRepository.findOneBy({ id: agentId });
 
+  if (!agent) {
+    throw new AppError("Agent does not exist");
+  }
+
+  const findFamilies = await familyRepository.find();
+  if (!findFamilies) {
+    throw new AppError("No family found");
+  }
+  const filterFamilies:IResponseFamily[] = []
+
+  findFamilies.forEach((family) => {
+
+    if (family.address.agent.id === agentId) {
+        const formatedFamily = {
+        id: family.id,
+        name: family.name,
+        address_id: family.address.id,
+      };
+      filterFamilies.push(formatedFamily)
     }
+  });
 
-    const addresses = await addressRepository.find({
-        where:{agent:agent}
-    })
-
-    if (!addresses){
-        
-        throw new AppError("There are no addresses registered for this agent.", 400)
-
-    }
-
-    //Encontrar familias por endereços e agentes
-
-
-}
+  return filterFamilies;
+};

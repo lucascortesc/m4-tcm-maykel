@@ -4,7 +4,7 @@ import { listAllFamiliesService } from "../../services/family/listAllFamilies.se
 export const listAllFamiliesControler = async (req: Request, res: Response) => {
     const agentId = req.userId;
     
-    const listFamilies = listAllFamiliesService(agentId)
+    const listFamilies = await listAllFamiliesService(agentId)
 
     return res.status(200).json(listFamilies)
 
