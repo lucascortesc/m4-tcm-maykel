@@ -36,8 +36,6 @@ export const createHomeVisitService = async (
     agent_id: agent,
   });
 
-  console.log(newHomeVisit)
-
   await homeVisitRepository.save(newHomeVisit);
 
   const homeVisit = {
