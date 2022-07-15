@@ -5,9 +5,4 @@ import verifyHomeVisit from "../middlewares/verifyHomeVisit.middleware";
 
 const homeVisitRoutes = Router();
 
-homeVisitRoutes.patch(
-  "/:id",
-  authorization,
-  verifyHomeVisit,
-  updateHomeVisitController
-);
+homeVisitRoutes.patch("/:id", authorization, verifyHomeVisit, updateHomeVisitController);
