@@ -11,7 +11,6 @@ const updateHomeVisitService = async (
 ): Promise<IHomeVisit> => {
   const homeVisitRepository = AppDataSource.getRepository(HomeVisit);
   const addressRepository = AppDataSource.getTreeRepository(Address)
-  console.log(data)
 
   if (!homeVisitRepository) {
     throw new AppError("teste", 400)
@@ -52,8 +51,8 @@ const updateHomeVisitService = async (
     message: updatedVisit.message,
     updated_at: updatedVisit.updated_at,
     created_at: updatedVisit.created_at,
-    agent_id: updatedVisit.agent_id,
-    address_id: updatedVisit.address_id
+    agent_id: updatedVisit.agent_id.id,
+    address_id: updatedVisit.address_id.id
   }
 };
 
