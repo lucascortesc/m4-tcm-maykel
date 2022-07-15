@@ -18,3 +18,5 @@ homeVisitRoutes.delete(
   verifyHomeVisit,
   deleteHomeVisitController
 )
+
+export default homeVisitRoutes

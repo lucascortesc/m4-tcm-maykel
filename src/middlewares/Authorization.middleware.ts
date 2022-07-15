@@ -11,7 +11,7 @@ export const authorization = (
   let token = req.headers.authorization;
 
   if (!token) {
-     new AppError("Missing token", 401);
+    throw new AppError("Missing token", 401);
   }
 
   const splitToken = token.split(" ");
@@ -29,7 +29,7 @@ export const authorization = (
 
       req.userId = decoded.id;
       req.userIsActive = decoded.isactive;
-      next();
     }
-  );
+    );
+    next();
 };

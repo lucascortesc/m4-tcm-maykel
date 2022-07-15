@@ -3,10 +3,11 @@ import deleteHomeVisitService from "../../services/homeVisit/deleteHomeVisit.ser
 
 const deleteHomeVisitController = async (req: Request, res: Response) => {
     const { id } = req.params
-    await deleteHomeVisitService(id)
+    const { userId } = req
+    const deleteVisit = await deleteHomeVisitService(id, userId)
 
     return res.status(200).json({
-        "message": "Visit deleted with success"
+        "message": deleteVisit
     })
 }
 
