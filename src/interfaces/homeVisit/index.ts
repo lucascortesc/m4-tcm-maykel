@@ -8,8 +8,8 @@ export interface IHomeVisit {
   id: string;
   status: string;
   message: string;
-  address_id: any;
-  agent_id: any;
+  address_id: string;
+  agent_id: string;
   created_at: Date;
   updated_at: Date;
 }

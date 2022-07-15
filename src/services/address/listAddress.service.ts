@@ -17,7 +17,7 @@ export const listAddressService = async (addressId: string, userId: string): Pro
   }
 
   if (address.agent.id !== userId) {
-    throw new AppError("Agent does not have access to address", 401)
+    throw new AppError("Agent does not have access to address", 403);
   }
 
   const returnAddress = {
@@ -27,7 +27,7 @@ export const listAddressService = async (addressId: string, userId: string): Pro
     cep: address.cep,
     number: address.number,
     street: address.street,
-    agentId: address.agent.id,
+    agent_id: address.agent.id,
   };
 
   return returnAddress;

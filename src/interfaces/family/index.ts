@@ -9,6 +9,7 @@ export interface iCreateFamily extends iFamily {
 }
 
 export interface iUpdateFamily {
+  id?: string;
   name?: string;
   address_id?: string;
 }

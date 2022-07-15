@@ -31,7 +31,7 @@ export const createPacientService = async (
   const agentIdfromAdress = address.agent.id;
 
   if (agentIdfromAdress !== agentId) {
-    throw new AppError("Agent does not have access to family");
+    throw new AppError("Agent does not have access to family", 403);
   }
 
   if (findPacient) {

@@ -3,7 +3,7 @@ import { createFamilyController } from "../controllers/family/createFamily.contr
 
 import deleteFamilyController from "../controllers/family/deleteFamily.controller";
 import { listAllFamiliesControler } from "../controllers/family/listAllFamilies.controller";
-import listOneFamilyController from "../controllers/family/listOneFamily.controller"
+import listOneFamilyController from "../controllers/family/listOneFamily.controller";
 import updateFamilyController from "../controllers/family/updateFamily.controller";
 import { authorization } from "../middlewares/Authorization.middleware";
 import verifyFamily from "../middlewares/verifyFamily.middleware";
@@ -11,16 +11,9 @@ import verifyFamily from "../middlewares/verifyFamily.middleware";
 const familyRoutes = Router();
 
 familyRoutes.post("", authorization, createFamilyController);
-
-familyRoutes.delete("/:id", authorization, verifyFamily, deleteFamilyController);
-familyRoutes.get("/:id", authorization, verifyFamily, listOneFamilyController);
-familyRoutes.patch("/:id", authorization, verifyFamily, updateFamilyController);
-
-familyRoutes.get(
-  "",
-  authorization,
-  verifyFamily,
-  listAllFamiliesControler
-);
+familyRoutes.delete("/:id", authorization, deleteFamilyController);
+familyRoutes.get("/:id", authorization, listOneFamilyController);
+familyRoutes.patch("/:id", authorization, updateFamilyController);
+familyRoutes.get("", authorization, listAllFamiliesControler);
 
 export default familyRoutes;

@@ -11,7 +11,7 @@ import { addressSchema } from "../validation";
 const addressRoutes = Router();
 
 addressRoutes.post("", schemaValidation(addressSchema), authorization, createAddress);
-addressRoutes.get("/:id", listAddress);
+addressRoutes.get("/:id", authorization, listAddress);
 addressRoutes.get("", authorization, listAddressByAgentController);
 addressRoutes.delete("/:id", authorization, deleteAddressController);
 addressRoutes.patch("/:id", authorization, updateAddressController);
