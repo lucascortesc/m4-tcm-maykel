@@ -34,6 +34,7 @@ export const addressSchema = object().shape({
 
 export const familySchema = object().shape({
   name: string().required("name is required on request body."),
+  address_id: string().required("address_id is required on request body."),
 });
 
 export const pacientSchema = object().shape({

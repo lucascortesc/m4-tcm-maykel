@@ -7,7 +7,7 @@ import { Address } from "./address.entity";
 @Entity()
 export class HomeVisit {
     @PrimaryGeneratedColumn("uuid")
-    id: string
+    readonly id: string
 
     @CreateDateColumn()
     created_at: Date;

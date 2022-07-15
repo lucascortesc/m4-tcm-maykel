@@ -8,6 +8,8 @@ services:
     depends_on:
       db_health:
         condition: service_healthy
+    volumes:
+      - ./:/app/:rw
 
   db_health:
     image: postgres:14

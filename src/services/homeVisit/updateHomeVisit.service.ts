@@ -54,11 +54,11 @@ const updateHomeVisitService = async (
     id: updatedVisit.id,
     status: updatedVisit.status,
     message: updatedVisit.message,
-    created_at: updatedVisit.created_at,
     updated_at: updatedVisit.updated_at,
-    address_id: findAddress.id,
-    agent_id: updatedVisit.agent_id
-  };
+    created_at: updatedVisit.created_at,
+    agent_id: updatedVisit.agent_id,
+    address_id: updatedVisit.address_id
+  }
 };
 
 export default updateHomeVisitService;
