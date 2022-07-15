@@ -2,12 +2,9 @@ import AppDataSource from "../../data-source";
 import { Family } from "../../entities/family.entity";
 import { Address } from "../../entities/address.entity";
 import { AppError } from "../../errors/appError";
-import { iFamily, iCreateFamily } from "../../interfaces/family";
+import { iCreateFamily, IResponseFamily } from "../../interfaces/family";
 
-export const createFamilyService = async ({
-  name,
-  address_id,
-}: iCreateFamily): Promise<Family> => {
+export const createFamilyService = async ({ name, address_id }: iCreateFamily): Promise<IResponseFamily> => {
   const familyRepository = AppDataSource.getRepository(Family);
   const addressRepository = AppDataSource.getRepository(Address);
 
@@ -20,13 +17,19 @@ export const createFamilyService = async ({
   });
 
   if (!findAddress) {
-    throw new AppError("Address cannot be null", 400);
+    throw new AppError("Address not found", 404);
   }
 
   const newFamily = await familyRepository.save({
     name,
-    address_id: findAddress.id,
+    address: findAddress,
   });
 
-  return newFamily;
+  const responseFamily = {
+    id: newFamily.id,
+    name: newFamily.name,
+    address_id: newFamily.address.id,
+  };
+
+  return responseFamily;
 };
