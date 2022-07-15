@@ -17,12 +17,12 @@ export class HomeVisit {
 
     @Column({
         length: 50,
-        nullable: true
     })
     status: string
 
     @Column({
-        length: 500
+        length: 500,
+        nullable: true
     })
     message: string
 
