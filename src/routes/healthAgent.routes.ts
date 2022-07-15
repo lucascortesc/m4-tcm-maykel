@@ -10,10 +10,19 @@ import { agentSchema, updateAgentSchema } from "../validation";
 
 const agentRoutes = Router();
 
-agentRoutes.post("/register", schemaValidation(agentSchema), createHealthAgentController);
+agentRoutes.post(
+  "/register",
+  schemaValidation(agentSchema),
+  createHealthAgentController
+);
 agentRoutes.get("/agent", authorization, listHealthAgentController);
 agentRoutes.post("/login", loginHealthAgentController);
 agentRoutes.delete("/agent", authorization, deleteHealthAgentController);
-agentRoutes.patch("/agent", authorization, schemaValidation(updateAgentSchema), updateHealthAgentController);
+agentRoutes.patch(
+  "/agent",
+  authorization,
+  schemaValidation(updateAgentSchema),
+  updateHealthAgentController
+);
 
 export default agentRoutes;
