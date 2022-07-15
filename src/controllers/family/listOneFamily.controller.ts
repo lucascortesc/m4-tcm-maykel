@@ -3,7 +3,8 @@ import listOneFamilyService from "../../services/family/listOneFamily.service";
 
 const listOneFamilyController = async (req: Request, res: Response) => {
     const { id } = req.params
-    const listOneFamily = await listOneFamilyService(id)
+    const { userId } = req
+    const listOneFamily = await listOneFamilyService(id, userId)
 
     return res.json(listOneFamily)
 }

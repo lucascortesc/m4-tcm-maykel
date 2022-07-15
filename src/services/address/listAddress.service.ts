@@ -3,7 +3,7 @@ import { Address } from "../../entities/address.entity";
 import { AppError } from "../../errors/appError";
 import { IAddress } from "../../interfaces/address";
 
-export const listAddressService = async (addressId: string): Promise<IAddress> => {
+export const listAddressService = async (addressId: string, userId: string): Promise<IAddress> => {
   const addressRepository = AppDataSource.getRepository(Address);
 
   const address = await addressRepository.findOne({
@@ -14,6 +14,10 @@ export const listAddressService = async (addressId: string): Promise<IAddress> =
 
   if (!address) {
     throw new AppError("Address not found", 404);
+  }
+
+  if (address.agent.id !== userId) {
+    throw new AppError("Agent does not have access to address", 401)
   }
 
   const returnAddress = {

@@ -14,35 +14,37 @@ import { Address } from "./address.entity";
 
 @Entity()
 export class HomeVisit {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
 
-  @CreateDateColumn()
-  created_at: Date;
+    @PrimaryGeneratedColumn("uuid")
+    id: string
 
-  @UpdateDateColumn()
-  updated_at: Date;
+    @CreateDateColumn()
+    created_at: Date;
 
-  @Column({
-    length: 50,
-  })
-  status: string;
+    @UpdateDateColumn()
+    updated_at: Date;
 
-  @Column({
-    length: 500,
-    nullable: true,
-  })
-  message: string;
+    @Column({
+        length: 50,
+    })
+    status: string
 
-  @ManyToOne(() => Agent, (agent) => agent.id, {
-    eager: true,
-  })
-  @JoinColumn({ name: "agent_id" })
-  agent_id: Agent;
+    @Column({
+        length: 500,
+        nullable: true
+    })
+    message: string
 
-  @ManyToOne(() => Address, (address) => address.id, {
-    eager: true,
-  })
-  @JoinColumn({ name: "address_id" })
-  address_id: Address;
+    @ManyToOne(() => Agent, (agent) => agent.id, {
+        eager: true
+    })
+    @JoinColumn({ name: "agent_id" })
+    agent_id: Agent
+    
+    @ManyToOne(() => Address, (address) => address.id, {
+        eager: true
+    })
+    @JoinColumn({ name: "address_id" })
+    address_id: Address
+
 }
