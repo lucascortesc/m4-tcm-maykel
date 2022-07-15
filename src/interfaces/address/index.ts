@@ -8,10 +8,12 @@ export interface ICreateAddress {
 
 export interface IAddress extends ICreateAddress {
   id: string;
-  agentId: string;
+  agent_id: string;
 }
 
 export interface IUpdateAddress {
+  id?: string;
+  agent_id: string;
   state?: string;
   city?: string;
   cep?: string;

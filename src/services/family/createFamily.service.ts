@@ -20,6 +20,12 @@ export const createFamilyService = async ({ name, address_id }: iCreateFamily): 
     throw new AppError("Address not found", 404);
   }
 
+  const findFamily = await familyRepository.findOneBy({ address: findAddress });
+
+  if (findFamily) {
+    throw new AppError("Address already has a registered family");
+  }
+
   const newFamily = await familyRepository.save({
     name,
     address: findAddress,

@@ -5,22 +5,22 @@ import { AppError } from "../../errors/appError";
 
 const deleteFamilyService = async (id: string, userId: string): Promise<string> => {
   const familyRepository = AppDataSource.getRepository(Family);
-  const addressRepository = AppDataSource.getRepository(Address)
+  const addressRepository = AppDataSource.getRepository(Address);
 
-  const findFamily = await familyRepository.findOneBy({ id: id })
+  const findFamily = await familyRepository.findOneBy({ id: id });
 
   if (!findFamily) {
-    throw new AppError("Family not found", 404)
+    throw new AppError("Family not found", 404);
   }
 
-  const findAddress = await addressRepository.findOneBy({ id: findFamily.address.id })
+  const findAddress = await addressRepository.findOneBy({ id: findFamily.address.id });
 
   if (!findAddress) {
-    throw new AppError("Address not found", 404)
+    throw new AppError("Address not found", 404);
   }
 
   if (findAddress.agent.id !== userId) {
-    throw new AppError("Agent does not have access to family", 401)
+    throw new AppError("Agent does not have access to family", 403);
   }
 
   await familyRepository.delete(id);

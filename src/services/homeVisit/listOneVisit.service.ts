@@ -11,7 +11,7 @@ export const listOneVisitService = async (visitId: string, agentId: string) => {
   }
 
   if (visit.agent_id.id !== agentId) {
-    throw new AppError("Agent does not have access to visit", 401);
+    throw new AppError("Agent does not have access to visit", 403);
   }
 
   return {
