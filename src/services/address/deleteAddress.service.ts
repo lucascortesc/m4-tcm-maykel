@@ -18,5 +18,7 @@ export const deleteAddressService = async (
     throw new AppError("You don't have authorization.");
   }
 
+  await addressRepository.delete(id);
+
   return "Address deleted with sucess";
 };
