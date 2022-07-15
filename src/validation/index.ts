@@ -53,7 +53,7 @@ export const visitsSchema = object().shape({
   message: string()
     .required("message is required on request body.")
     .max(500, "length must be under 500."),
-  family_id: string().required("family_id is required on request body."),
+  address_id: string().required("address_id is required on request body."),
 });
 
 export const updateAgentSchema = object().shape({
