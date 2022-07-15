@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { listHomeVisitsController } from "../controllers/homeVisit/listHomeVisits.controller";
 import { createHomeVisitController } from "../controllers/homeVisit/createHomeVisit.controller";
 import updateHomeVisitController from "../controllers/homeVisit/updateHomeVisit.controller";
 import deleteHomeVisitController from "../controllers/homeVisit/deleteHomeVisit.controller"
@@ -28,4 +29,6 @@ homeVisitRoutes.delete(
   deleteHomeVisitController
 )
 
-export default homeVisitRoutes
+homeVisitRoutes.get("", authorization, listHomeVisitsController);
+
+export default homeVisitRoutes;

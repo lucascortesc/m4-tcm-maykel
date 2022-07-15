@@ -1,13 +1,22 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm"
-import { v4 as uuid } from "uuid"
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from "typeorm";
+import { v4 as uuid } from "uuid";
 
 import { Agent } from "./healthAgent.entity";
 import { Address } from "./address.entity";
 
 @Entity()
 export class HomeVisit {
+
     @PrimaryGeneratedColumn("uuid")
-    readonly id: string
+    id: string
 
     @CreateDateColumn()
     created_at: Date;
