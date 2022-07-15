@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { createHomeVisitController } from "../controllers/homeVisit/createHomeVisit.controller";
 import updateHomeVisitController from "../controllers/homeVisit/updateHomeVisit.controller";
+import deleteHomeVisitController from "../controllers/homeVisit/deleteHomeVisit.controller"
 import { authorization } from "../middlewares/Authorization.middleware";
 import { schemaValidation } from "../middlewares/schemaValidation.middleware";
 import verifyHomeVisit from "../middlewares/verifyHomeVisit.middleware";
@@ -20,5 +21,11 @@ homeVisitRoutes.patch(
   verifyHomeVisit,
   updateHomeVisitController
 );
+homeVisitRoutes.delete(
+  "/:id",
+  authorization,
+  verifyHomeVisit,
+  deleteHomeVisitController
+)
 
 export default homeVisitRoutes

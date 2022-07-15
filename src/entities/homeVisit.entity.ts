@@ -7,7 +7,7 @@ import { Address } from "./address.entity";
 @Entity()
 export class HomeVisit {
     @PrimaryGeneratedColumn("uuid")
-    id: string
+    readonly id: string
 
     @CreateDateColumn()
     created_at: Date;
@@ -26,11 +26,15 @@ export class HomeVisit {
     })
     message: string
 
-    @ManyToOne(() => Agent, (agent) => agent.id)
+    @ManyToOne(() => Agent, (agent) => agent.id, {
+        eager: true
+    })
     @JoinColumn({ name: "agent_id" })
     agent_id: Agent
     
-    @ManyToOne(() => Address, (address) => address.id)
+    @ManyToOne(() => Address, (address) => address.id, {
+        eager: true
+    })
     @JoinColumn({ name: "address_id" })
     address_id: Address
 

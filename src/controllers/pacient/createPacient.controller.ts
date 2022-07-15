@@ -13,7 +13,6 @@ export const createPacient = async (req: Request, res: Response) => {
     name,
     tel,
   }: ICreatePacient = req.body;
-  console.log("chegou");
   const newPacient = await createPacientService(
     { age, cpf, family_id, is_owner, last_name, name, tel },
     agentId

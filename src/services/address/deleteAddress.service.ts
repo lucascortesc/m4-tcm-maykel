@@ -15,7 +15,7 @@ export const deleteAddressService = async (
   }
 
   if (findAddress.agent.id !== agentId) {
-    throw new AppError("You don't have authorization.");
+    throw new AppError("Agent does not have access to address");
   }
 
   await addressRepository.delete(id);

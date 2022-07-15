@@ -13,8 +13,8 @@ app.use(express.json());
 app.use("", agentRoutes);
 app.use("/family", familyRoutes);
 app.use("/address", addressRoutes);
-app.use("/pacient", pacientRoutes);
 app.use("/visits", homeVisitRoutes);
+app.use("/pacient", pacientRoutes);
 
 app.use(handleAppErrorMiddleware);
 
