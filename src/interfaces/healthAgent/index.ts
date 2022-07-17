@@ -18,3 +18,11 @@ export interface IUpdateHealthAgent {
   isactive?: boolean;
   password?: string;
 }
+
+export interface ITestHealthAgent {
+  id?: string;
+  email?: string;
+  name?: string;
+  password?: string;
+  token?: string;
+}

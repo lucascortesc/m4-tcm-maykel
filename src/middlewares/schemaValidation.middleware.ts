@@ -11,7 +11,7 @@ export const schemaValidation =
     } catch (error) {
       if (error instanceof ValidationError) {
         return res.status(400).json({
-          message: error.errors.join("; "),
+          error: error.errors.join("; "),
         });
       }
     }
