@@ -31,12 +31,6 @@ const loginAgent1 = {
   email: "agent1@mail.com",
 };
 
-const healthAgent2: ITestHealthAgent = {
-  name: "agent 2",
-  password: "abC123!@#",
-  email: "agent2@mail.com",
-};
-
 describe("Creating an agent", () => {
   test("Should create an agent", async () => {
     const response = await request(app).post("/register").send(healthAgent1);

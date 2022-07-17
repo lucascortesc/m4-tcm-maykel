@@ -1,4 +1,4 @@
-import { object, string } from "yup";
+import { object, string, number } from "yup";
 
 export const agentSchema = object().shape({
   name: string().required("name is required on body request").max(158, "length must be under 158"),
@@ -26,6 +26,14 @@ export const addressSchema = object().shape({
     .max(8, "cep must contain 8 characters"),
   number: string().required("number is required on request body"),
   street: string().required("street is required on body request").max(158, "length must be under 158"),
+});
+
+export const updateAddressSchema = object().shape({
+  state: string().min(2, "state must contain 2 characters").max(2, "state must contain only 2 characters"),
+  city: string(),
+  cep: string().min(8, "cep must contain 8 characters").max(8, "cep must contain 8 characters"),
+  number: number(),
+  street: string().max(158, "length must be under 158"),
 });
 
 export const familySchema = object().shape({

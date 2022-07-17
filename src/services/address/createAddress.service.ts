@@ -26,11 +26,11 @@ export const createAddressService = async (
   });
 
   if (!healthAgent) {
-    throw new AppError("Agent not found", 404);
+    throw new AppError("agent not found", 404);
   }
 
   if (findAddress) {
-    throw new AppError("Adress already exists");
+    throw new AppError("address already exists");
   }
 
   const newAddress = await addressRepository.save({
