@@ -17,5 +17,5 @@ export const deleteAddressService = async (id: string, agentId: string): Promise
 
   await addressRepository.delete(id);
 
-  return "address deleted with sucess";
+  return "address deleted with success";
 };

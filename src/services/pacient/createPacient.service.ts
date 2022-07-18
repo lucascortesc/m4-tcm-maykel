@@ -18,14 +18,14 @@ export const createPacientService = async (
   const findFamily = await familyRepository.findOneBy({ id: family_id });
 
   if (!findFamily) {
-    throw new AppError("Family not found", 404);
+    throw new AppError("family not found", 404);
   }
   const addressId = findFamily.address.id;
 
   const address = await addressRepository.findOneBy({ id: addressId });
 
   if (!address) {
-    throw new AppError("Address not found", 404);
+    throw new AppError("address not found", 404);
   }
 
   const agentIdfromAdress = address.agent.id;
@@ -35,7 +35,7 @@ export const createPacientService = async (
   }
 
   if (findPacient) {
-    throw new AppError("Pacient already exists");
+    throw new AppError("pacient already exists");
   }
 
   const newPacient = pacientRepository.create({

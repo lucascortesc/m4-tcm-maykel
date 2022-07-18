@@ -37,23 +37,23 @@ export const updateAddressSchema = object().shape({
 });
 
 export const familySchema = object().shape({
-  name: string().required("name is required on request body"),
-  address_id: string().required("address_id is required on request body"),
+  name: string().required("name is required on body request"),
+  address_id: string().required("address_id is required on body request"),
 });
 
 export const pacientSchema = object().shape({
-  cpf: string().required("cpf is required on request body"),
-  name: string().required("name is required on request body").max(158, "legnth must be under 158"),
-  last_name: string().required("last_name is required on request body"),
-  age: string().required("age is required on request body"),
-  tel: string().required("tel is required on request body"),
-  family_id: string().required("family_id is required on request body"),
+  cpf: string().required("cpf is required on body request"),
+  name: string().required("name is required on body request").max(158, "legnth must be under 158"),
+  last_name: string().required("last_name is required on body request"),
+  age: string().required("age is required on body request"),
+  tel: string().required("tel is required on body request"),
+  family_id: string().required("family_id is required on body request"),
 });
 
 export const visitsSchema = object().shape({
-  status: string().required("status is required on request body"),
-  message: string().required("message is required on request body").max(500, "length must be under 500"),
-  address_id: string().required("address_id is required on request body"),
+  status: string().required("status is required on body request"),
+  message: string().required("message is required on body request").max(500, "length must be under 500"),
+  address_id: string().required("address_id is required on body request"),
 });
 
 export const updateAgentSchema = object().shape({

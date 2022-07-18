@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { createFamilyController } from "../controllers/family/createFamily.controllers";
-
 import deleteFamilyController from "../controllers/family/deleteFamily.controller";
 import { listAllFamiliesControler } from "../controllers/family/listAllFamilies.controller";
 import listOneFamilyController from "../controllers/family/listOneFamily.controller";
@@ -17,5 +16,6 @@ familyRoutes.delete("/:id", authorization, userIsActive, deleteFamilyController)
 familyRoutes.get("/:id", authorization, userIsActive, listOneFamilyController);
 familyRoutes.patch("/:id", authorization, userIsActive, updateFamilyController);
 familyRoutes.get("", authorization, userIsActive, listAllFamiliesControler);
+
 
 export default familyRoutes;

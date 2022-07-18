@@ -7,6 +7,6 @@ export const deletePacientController = async (req: Request, res: Response) => {
   const deletePacient = await deletePacientService(id, userId);
 
   return res.status(200).json({
-    message: "Pacient deleted with success",
+    message: "pacient deleted with success",
   });
 };

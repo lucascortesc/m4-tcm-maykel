@@ -7,7 +7,7 @@ export const listOneVisitService = async (visitId: string, agentId: string) => {
 
   const visit = await homeVisitRepository.findOneBy({ id: visitId });
   if (!visit) {
-    throw new AppError("Visit not found", 404);
+    throw new AppError("visit not found", 404);
   }
 
   if (visit.agent_id.id !== agentId) {

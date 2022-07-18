@@ -8,32 +8,28 @@ const updateHomeVisitService = async (id: string, data: IUpdateHomeVisit, userId
   const homeVisitRepository = AppDataSource.getRepository(HomeVisit);
   const addressRepository = AppDataSource.getTreeRepository(Address);
 
-  if (!homeVisitRepository) {
-    throw new AppError("teste", 400);
-  }
-
   if (data.id) {
-    throw new AppError("You can't change the home visit id.", 403);
+    throw new AppError("you can't change the visit id", 403);
   }
 
   if (data.agent_id) {
-    throw new AppError("You can't change the agent id", 403);
+    throw new AppError("you can't change the agent id", 403);
   }
 
   if (data.address_id) {
-    throw new AppError("You can't change the agent id", 403);
+    throw new AppError("you can't change the address id", 403);
   }
 
   const homeVisit = await homeVisitRepository.findOneBy({ id: id });
 
   if (!homeVisit) {
-    throw new AppError("Visit not found", 404);
+    throw new AppError("visit not found", 404);
   }
 
   const findAddress = await addressRepository.findOneBy({ id: homeVisit.address_id.id });
 
   if (!findAddress) {
-    throw new AppError("Address not found", 404);
+    throw new AppError("address not found", 404);
   }
 
   if (findAddress.agent.id !== userId) {
@@ -44,7 +40,7 @@ const updateHomeVisitService = async (id: string, data: IUpdateHomeVisit, userId
 
   const updatedVisit = await homeVisitRepository.findOneBy({ id: id });
   if (!updatedVisit) {
-    throw new AppError("Visit can not be updated, don't worry it's not your fault.");
+    throw new AppError("visit can not be updated, don't worry it's not your fault.");
   }
 
   return {
