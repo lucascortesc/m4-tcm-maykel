@@ -7,9 +7,11 @@ import agentRoutes from "./routes/healthAgent.routes";
 import homeVisitRoutes from "./routes/homeVisit.routes";
 import { pacientRoutes } from "./routes/pacient.routes";
 
+const cors = require("cors");
+
 const app = express();
 app.use(express.json());
-
+app.use(cors());
 app.use("", agentRoutes);
 app.use("/family", familyRoutes);
 app.use("/address", addressRoutes);

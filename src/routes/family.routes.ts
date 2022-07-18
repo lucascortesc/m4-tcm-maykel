@@ -6,14 +6,16 @@ import { listAllFamiliesControler } from "../controllers/family/listAllFamilies.
 import listOneFamilyController from "../controllers/family/listOneFamily.controller";
 import updateFamilyController from "../controllers/family/updateFamily.controller";
 import { authorization } from "../middlewares/Authorization.middleware";
-import verifyFamily from "../middlewares/verifyFamily.middleware";
+import { schemaValidation } from "../middlewares/schemaValidation.middleware";
+import { userIsActive } from "../middlewares/userIsActive.middleware";
+import { familySchema } from "../validation";
 
 const familyRoutes = Router();
 
-familyRoutes.post("", authorization, createFamilyController);
-familyRoutes.delete("/:id", authorization, deleteFamilyController);
-familyRoutes.get("/:id", authorization, listOneFamilyController);
-familyRoutes.patch("/:id", authorization, updateFamilyController);
-familyRoutes.get("", authorization, listAllFamiliesControler);
+familyRoutes.post("", authorization, userIsActive, schemaValidation(familySchema), createFamilyController);
+familyRoutes.delete("/:id", authorization, userIsActive, deleteFamilyController);
+familyRoutes.get("/:id", authorization, userIsActive, listOneFamilyController);
+familyRoutes.patch("/:id", authorization, userIsActive, updateFamilyController);
+familyRoutes.get("", authorization, userIsActive, listAllFamiliesControler);
 
 export default familyRoutes;
