@@ -4,7 +4,7 @@ import app from "../../app";
 import request from "supertest";
 import { ITestHealthAgent } from "../../interfaces/healthAgent";
 
-export let connection: DataSource;
+let connection: DataSource;
 
 beforeAll(async () => {
   await AppDataSource.initialize()
@@ -16,11 +16,11 @@ beforeAll(async () => {
     });
 });
 
-// afterAll(async () => {
-//   await connection.destroy();
-// });
+afterAll(async () => {
+  await connection.destroy();
+});
 
-export const healthAgent1: ITestHealthAgent = {
+const healthAgent1: ITestHealthAgent = {
   name: "agent 1",
   password: "abC123!@#",
   email: "agent1@mail.com",
@@ -189,5 +189,35 @@ describe("Deleting an agent", () => {
     expect(response.status).toEqual(400);
     expect(response.body).toHaveProperty("error");
     expect(response.body.error).toEqual("User inactive");
+  });
+});
+
+describe("Reactivating an agent", () => {
+  test("Should reactivate an agent", async () => {
+    const response = await request(app).patch("/agent/activate").set("Authorization", `Bearer ${healthAgent1.token}`);
+
+    expect(response.status).toEqual(200);
+    expect(response.body).toHaveProperty("isactive");
+    expect(response.body.id).toEqual(healthAgent1.id);
+    expect(response.body.isactive).toEqual(true);
+
+    const login = await request(app).post("/login").send(loginAgent1);
+    healthAgent1.token = login.body.token;
+  });
+
+  test("Should return an error for an unauthenticated agent", async () => {
+    const response = await request(app).patch("/agent/activate").set("Authorization", `Bearer fakeTOken`);
+
+    expect(response.status).toEqual(401);
+    expect(response.body).toHaveProperty("error");
+    expect(response.body.error).toEqual("Invalid token");
+  });
+
+  test("Should return agent is already active", async () => {
+    const response = await request(app).patch("/agent/activate").set("Authorization", `Bearer ${healthAgent1.token}`);
+
+    expect(response.status).toEqual(400);
+    expect(response.body).toHaveProperty("error");
+    expect(response.body.error).toEqual("agent is already active");
   });
 });

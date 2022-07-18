@@ -16,7 +16,7 @@ export const authorization = (req: Request, res: Response, next: NextFunction) =
     if (error) {
       throw new AppError("Invalid token", 401);
     }
-    if (!decoded.isactive) {
+    if (!decoded.isactive && req.path !== "/agent/activate") {
       throw new AppError("User inactive");
     }
 
