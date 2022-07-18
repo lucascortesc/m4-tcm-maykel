@@ -2,9 +2,13 @@ import { hash } from "bcrypt";
 import AppDataSource from "../../data-source";
 import { Agent } from "../../entities/healthAgent.entity";
 import { AppError } from "../../errors/appError";
-import { ICreateHealthAgent, IHealthAgent } from "../../interfaces/healthAgent";
+import { ICreateHealthAgent, IResponseHealthAgent } from "../../interfaces/healthAgent";
 
-const createHealthAgentService = async ({ name, email, password }: ICreateHealthAgent): Promise<IHealthAgent> => {
+const createHealthAgentService = async ({
+  name,
+  email,
+  password,
+}: ICreateHealthAgent): Promise<IResponseHealthAgent> => {
   const healthAgentRepository = AppDataSource.getRepository(Agent);
 
   const verifyEmail = await healthAgentRepository.findOneBy({ email: email });
@@ -23,9 +27,14 @@ const createHealthAgentService = async ({ name, email, password }: ICreateHealth
 
   await healthAgentRepository.save(healthAgent);
 
-  const newAgent: any = { ...healthAgent };
+  const newAgent: any = {
+    id: healthAgent.id,
+    name: healthAgent.name,
+    email: healthAgent.email,
+    isactive: healthAgent.isactive,
+  };
 
-  return { ...newAgent, password: undefined };
+  return newAgent;
 };
 
 export default createHealthAgentService;
