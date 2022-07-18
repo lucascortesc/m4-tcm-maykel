@@ -6,14 +6,21 @@ import { listAddressByAgentController } from "../controllers/address/listAddress
 import { updateAddressController } from "../controllers/address/updateAddress.controller";
 import { authorization } from "../middlewares/Authorization.middleware";
 import { schemaValidation } from "../middlewares/schemaValidation.middleware";
+import { userIsActive } from "../middlewares/userIsActive.middleware";
 import { addressSchema, updateAddressSchema } from "../validation";
 
 const addressRoutes = Router();
 
-addressRoutes.post("", schemaValidation(addressSchema), authorization, createAddress);
-addressRoutes.get("/:id", authorization, listAddress);
-addressRoutes.get("", authorization, listAddressByAgentController);
-addressRoutes.delete("/:id", authorization, deleteAddressController);
-addressRoutes.patch("/:id", schemaValidation(updateAddressSchema), authorization, updateAddressController);
+addressRoutes.post("", authorization, userIsActive, schemaValidation(addressSchema), createAddress);
+addressRoutes.get("/:id", authorization, userIsActive, listAddress);
+addressRoutes.get("", authorization, userIsActive, listAddressByAgentController);
+addressRoutes.delete("/:id", authorization, userIsActive, deleteAddressController);
+addressRoutes.patch(
+  "/:id",
+  authorization,
+  userIsActive,
+  schemaValidation(updateAddressSchema),
+  updateAddressController
+);
 
 export default addressRoutes;
