@@ -16,11 +16,11 @@ export const updateAddressService = async (id: string, agentId: string, data: IU
   }
 
   if (!address) {
-    throw new AppError("address does not exist.", 404);
+    throw new AppError("address does not exists", 404);
   }
 
   if (agentId !== address.agent.id) {
-    throw new AppError("address don't belong to you, cannot update.");
+    throw new AppError("Agent does not have access to address", 403);
   }
 
   await addressRepository.update(id, {
@@ -34,7 +34,7 @@ export const updateAddressService = async (id: string, agentId: string, data: IU
   const updatedAddress = await addressRepository.findOneBy({ id });
 
   if (!updatedAddress) {
-    throw new AppError("address does not exist.", 404);
+    throw new AppError("address does not exist", 404);
   }
 
   const withoutAgent = {

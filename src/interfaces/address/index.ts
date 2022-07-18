@@ -13,7 +13,7 @@ export interface IAddress extends ICreateAddress {
 
 export interface IUpdateAddress {
   id?: string;
-  agent_id: string;
+  agent_id?: string;
   state?: string;
   city?: string;
   cep?: string;

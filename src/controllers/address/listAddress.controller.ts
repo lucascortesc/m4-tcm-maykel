@@ -7,5 +7,5 @@ export const listAddress = async (req: Request, res: Response) => {
 
   const Address = await listAddressService(addressId, userId);
 
-  return res.status(201).json(Address);
+  return res.status(200).json(Address);
 };
