@@ -19,11 +19,11 @@ export const createHomeVisitService = async (
   });
 
   if (!agent) {
-    throw new AppError("agent does not exist.", 404);
+    throw new AppError("agent not found", 404);
   }
 
   if (!address) {
-    throw new AppError("address does not exist.", 404);
+    throw new AppError("address not found", 404);
   }
 
   if (address.agent.id !== agent_id) {
