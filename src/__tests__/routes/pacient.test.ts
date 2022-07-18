@@ -5,6 +5,7 @@ import request from "supertest";
 import { ITestHealthAgent } from "../../interfaces/healthAgent";
 import { IUpdateAddress } from "../../interfaces/address";
 import { iUpdateFamily } from "../../interfaces/family";
+import { IUpdatePacient } from "../../interfaces/pacient";
 
 let connection: DataSource;
 
@@ -34,7 +35,16 @@ beforeAll(async () => {
     .set("Authorization", `Bearer ${healthAgent1.token}`);
 
   address1.id = createAddress1.body.id;
+  address1.agent_id = healthAgent1.id;
   family.address_id = address1.id;
+
+  const createFamily = await request(app)
+    .post("/family")
+    .send(family)
+    .set("Authorization", `Bearer ${healthAgent1.token}`);
+
+  family.id = createFamily.body.id;
+  pacient.family_id = family.id;
 });
 
 afterAll(async () => {
@@ -75,54 +85,89 @@ const family: iUpdateFamily = {
   name: "family",
 };
 
-describe("Creating a family", () => {
-  test("Should create a family", async () => {
+const pacient: IUpdatePacient = {
+  cpf: "12345678911",
+  name: "Pacient",
+  last_name: "last_name1",
+  age: 30,
+  tel: "99999999",
+  is_owner: true,
+};
+
+describe("Creating a pacient", () => {
+  test("Should create a pacient", async () => {
     const response = await request(app)
-      .post("/family")
-      .send(family)
+      .post("/pacient")
+      .send(pacient)
       .set("Authorization", `Bearer ${healthAgent1.token}`);
 
     expect(response.status).toEqual(201);
     expect(response.body).toHaveProperty("id");
 
-    family.id = response.body.id;
+    pacient.id = response.body.id;
   });
 
-  test("Should return an error for family with missing field", async () => {
+  test("Should return an error when agent is not the owner of the family", async () => {
     const response = await request(app)
-      .post("/family")
-      .send({ name: "family" })
+      .post("/pacient")
+      .send(pacient)
+      .set("Authorization", `Bearer ${healthAgent2.token}`);
+
+    expect(response.status).toEqual(403);
+    expect(response.body).toHaveProperty("error");
+    expect(response.body.error).toEqual("Agent does not have access to family");
+  });
+
+  test("Should return an error for pacient with missing field", async () => {
+    const response = await request(app)
+      .post("/pacient")
+      .send({
+        cpf: "12345678911",
+        name: "Pacient",
+        last_name: "last_name1",
+        tel: "99999999",
+        is_owner: true,
+        family_id: "a8398c9a-12b3-4384-9415-b550c9dda6df",
+      })
       .set("Authorization", `Bearer ${healthAgent1.token}`);
 
     expect(response.status).toEqual(400);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("address_id is required on body request");
+    expect(response.body.error).toEqual("age is required on body request");
   });
 
-  test("Should return address already has a registered family", async () => {
+  test("Should return pacient already exists", async () => {
     const response = await request(app)
-      .post("/family")
-      .send(family)
+      .post("/pacient")
+      .send(pacient)
       .set("Authorization", `Bearer ${healthAgent1.token}`);
 
     expect(response.status).toEqual(400);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("address already has a registered family");
+    expect(response.body.error).toEqual("pacient already exists");
   });
 
-  test("Should return address not found", async () => {
+  test("Should return family not found", async () => {
     const response = await request(app)
-      .post("/family")
-      .send({ name: "family", address_id: "a8398c9a-12b3-4384-9415-b550c9dda6df" })
+      .post("/pacient")
+      .send({
+        cpf: "12345678911",
+        name: "Pacient",
+        last_name: "last_name1",
+        age: 30,
+        tel: "99999999",
+        is_owner: true,
+        family_id: "a8398c9a-12b3-4384-9415-b550c9dda6df",
+      })
       .set("Authorization", `Bearer ${healthAgent1.token}`);
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("address not found");
+    expect(response.body.error).toEqual("family not found");
   });
 
   test("Should return an error for an unauthenticated agent", async () => {
-    const response = await request(app).post("/family").send(family).set("Authorization", `Bearer fakeToken`);
+    const response = await request(app).post("/pacient").send(pacient).set("Authorization", `Bearer fakeToken`);
 
     expect(response.status).toEqual(401);
     expect(response.body).toHaveProperty("error");
@@ -130,17 +175,17 @@ describe("Creating a family", () => {
   });
 });
 
-describe("Listing all families of an agent", () => {
-  test("Should return all families for an agent", async () => {
-    const response = await request(app).get("/family").set("Authorization", `Bearer ${healthAgent1.token}`);
+describe("Listing all pacients of an agent", () => {
+  test("Should return all pacients for an agent", async () => {
+    const response = await request(app).get("/pacient").set("Authorization", `Bearer ${healthAgent1.token}`);
 
     expect(response.status).toEqual(200);
     expect(response.body).toHaveLength(1);
-    expect(response.body[0].id).toEqual(family.id);
+    expect(response.body[0].id).toEqual(pacient.id);
   });
 
   test("Should return an error for an unauthenticated agent", async () => {
-    const response = await request(app).get("/family");
+    const response = await request(app).get("/pacient");
 
     expect(response.status).toEqual(401);
     expect(response.body).toHaveProperty("error");
@@ -148,39 +193,39 @@ describe("Listing all families of an agent", () => {
   });
 });
 
-describe("Listing a specific family", () => {
-  test("Should return a specific family", async () => {
+describe("Listing a specific pacient", () => {
+  test("Should return a specific pacient", async () => {
     const response = await request(app)
-      .get(`/family/${family.id}`)
+      .get(`/pacient/${pacient.id}`)
       .set("Authorization", `Bearer ${healthAgent1.token}`);
 
     expect(response.status).toEqual(200);
-    expect(response.body.id).toEqual(family.id);
-    expect(response.body.address_id).toEqual(address1.id);
+    expect(response.body.id).toEqual(pacient.id);
+    expect(response.body.family_id).toEqual(family.id);
   });
 
-  test("Should return family not found", async () => {
+  test("Should return pacient not found", async () => {
     const response = await request(app)
-      .get(`/family/1e7126af-f130-6780-adb4-8bbe7368fc2f`)
+      .get(`/pacient/1e7126af-f130-6780-adb4-8bbe7368fc2f`)
       .set("Authorization", `Bearer ${healthAgent1.token}`);
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("family not found");
+    expect(response.body.error).toEqual("pacient not found");
   });
 
-  test("Should return an error when agent is not the owner of the family", async () => {
+  test("Should return an error when agent is not the owner of the pacient", async () => {
     const response = await request(app)
-      .get(`/family/${family.id}`)
+      .get(`/pacient/${pacient.id}`)
       .set("Authorization", `Bearer ${healthAgent2.token}`);
 
     expect(response.status).toEqual(403);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("Agent does not have access to family");
+    expect(response.body.error).toEqual("Agent does not have access to pacient");
   });
 
   test("Should return an error for an unauthenticated agent", async () => {
-    const response = await request(app).get(`/family/${family.id}`).set("Authorization", `Bearer fakeToken`);
+    const response = await request(app).get(`/pacient/${pacient.id}`).set("Authorization", `Bearer fakeToken`);
 
     expect(response.status).toEqual(401);
     expect(response.body).toHaveProperty("error");
@@ -188,32 +233,43 @@ describe("Listing a specific family", () => {
   });
 });
 
-describe("Updating a family", () => {
-  test("Should update a family", async () => {
+describe("Updating a pacient", () => {
+  test("Should update a pacient", async () => {
     const response = await request(app)
-      .patch(`/family/${family.id}`)
-      .send({ name: "family updated" })
+      .patch(`/pacient/${pacient.id}`)
+      .send({ name: "pacient updated" })
       .set("Authorization", `Bearer ${healthAgent1.token}`);
 
     expect(response.status).toEqual(200);
-    expect(response.body.name).toEqual("family updated");
+    expect(response.body.name).toEqual("pacient updated");
   });
 
-  test("Should return family not found", async () => {
+  test("Should return pacient not found", async () => {
     const response = await request(app)
-      .patch(`/family/1e7126af-f130-6780-adb4-8bbe7368fc2f`)
-      .send({ name: "family updated" })
+      .patch(`/pacient/1e7126af-f130-6780-adb4-8bbe7368fc2f`)
+      .send({ name: "pacient updated" })
       .set("Authorization", `Bearer ${healthAgent1.token}`);
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("family not found");
+    expect(response.body.error).toEqual("pacient not found");
+  });
+
+  test("Should return an error when trying to update pacient id", async () => {
+    const response = await request(app)
+      .patch(`/pacient/${pacient.id}`)
+      .send({ id: "1e7126af-f130-6780-adb4-8bbe7368fc2f" })
+      .set("Authorization", `Bearer ${healthAgent1.token}`);
+
+    expect(response.status).toEqual(403);
+    expect(response.body).toHaveProperty("error");
+    expect(response.body.error).toEqual("you can't change the pacient id");
   });
 
   test("Should return an error when trying to update family id", async () => {
     const response = await request(app)
-      .patch(`/family/${family.id}`)
-      .send({ id: "1e7126af-f130-6780-adb4-8bbe7368fc2f" })
+      .patch(`/pacient/${pacient.id}`)
+      .send({ family_id: "1e7126af-f130-6780-adb4-8bbe7368fc2f" })
       .set("Authorization", `Bearer ${healthAgent1.token}`);
 
     expect(response.status).toEqual(403);
@@ -221,32 +277,21 @@ describe("Updating a family", () => {
     expect(response.body.error).toEqual("you can't change the family id");
   });
 
-  test("Should return an error when trying to update address id", async () => {
+  test("Should return an error when agent is not the owner of the pacient", async () => {
     const response = await request(app)
-      .patch(`/family/${family.id}`)
-      .send({ address_id: "1e7126af-f130-6780-adb4-8bbe7368fc2f" })
-      .set("Authorization", `Bearer ${healthAgent1.token}`);
-
-    expect(response.status).toEqual(403);
-    expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("you can't change the address id");
-  });
-
-  test("Should return an error when agent is not the owner of the family", async () => {
-    const response = await request(app)
-      .patch(`/family/${family.id}`)
-      .send({ number: 3001 })
+      .patch(`/pacient/${pacient.id}`)
+      .send({ name: "pacient updated" })
       .set("Authorization", `Bearer ${healthAgent2.token}`);
 
     expect(response.status).toEqual(403);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("Agent does not have access to family");
+    expect(response.body.error).toEqual("Agent does not have access to pacient");
   });
 
   test("Should return an error for an unauthenticated agent", async () => {
     const response = await request(app)
-      .patch(`/family/${family.id}`)
-      .send({ name: "family updated" })
+      .patch(`/pacient/${pacient.id}`)
+      .send({ name: "pacient updated" })
       .set("Authorization", `Bearer fakeToken`);
 
     expect(response.status).toEqual(401);
@@ -255,42 +300,42 @@ describe("Updating a family", () => {
   });
 });
 
-describe("Deleting a family", () => {
-  test("Should return an error when agent is not the owner of the family", async () => {
+describe("Deleting a pacient", () => {
+  test("Should return an error when agent is not the owner of the pacient", async () => {
     const response = await request(app)
-      .delete(`/family/${family.id}`)
+      .delete(`/pacient/${pacient.id}`)
       .set("Authorization", `Bearer ${healthAgent2.token}`);
 
     expect(response.status).toEqual(403);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("Agent does not have access to family");
+    expect(response.body.error).toEqual("Agent does not have access to pacient");
   });
 
-  test("Should return family not found", async () => {
+  test("Should return pacient not found", async () => {
     const response = await request(app)
-      .delete(`/family/1e7126af-f130-6780-adb4-8bbe7368fc2f`)
+      .delete(`/pacient/1e7126af-f130-6780-adb4-8bbe7368fc2f`)
       .set("Authorization", `Bearer ${healthAgent1.token}`);
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("family not found");
+    expect(response.body.error).toEqual("pacient not found");
   });
 
   test("Should return an error for an unauthenticated agent", async () => {
-    const response = await request(app).delete(`/family/${family.id}`).set("Authorization", `Bearer fakeToken`);
+    const response = await request(app).delete(`/pacient/${pacient.id}`).set("Authorization", `Bearer fakeToken`);
 
     expect(response.status).toEqual(401);
     expect(response.body).toHaveProperty("error");
     expect(response.body.error).toEqual("Invalid token");
   });
 
-  test("Should delete an family", async () => {
+  test("Should delete an pacient", async () => {
     const response = await request(app)
-      .delete(`/family/${family.id}`)
+      .delete(`/pacient/${pacient.id}`)
       .set("Authorization", `Bearer ${healthAgent1.token}`);
 
     expect(response.status).toEqual(200);
     expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toEqual("family deleted with success");
+    expect(response.body.message).toEqual("pacient deleted with success");
   });
 });

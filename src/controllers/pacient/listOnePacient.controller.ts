@@ -3,7 +3,9 @@ import { listOnePacientService } from "../../services/pacient/listOnePatient.ser
 
 export const listOnePatientController = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const listOnePatient = await listOnePacientService(id);
+  const agentId = req.userId;
+
+  const listOnePatient = await listOnePacientService(id, agentId);
 
   return res.json(listOnePatient);
 };
