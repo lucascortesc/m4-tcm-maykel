@@ -8,14 +8,14 @@ const listOneFamilyService = async (id: string, userId: string) => {
   const findOneFamily = await findFamilyRepo.findOneBy({ id: id });
 
   if (!findOneFamily) {
-    throw new AppError("Family not found", 404);
+    throw new AppError("family not found", 404);
   }
 
   const findAddressRepo = AppDataSource.getRepository(Address);
   const findAddress = await findAddressRepo.findOneBy({ id: findOneFamily.address.id });
 
   if (!findAddress) {
-    throw new AppError("Address not found", 404);
+    throw new AppError("address not found", 404);
   }
 
   if (findAddress.agent.id !== userId) {

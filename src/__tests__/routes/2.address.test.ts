@@ -124,8 +124,8 @@ describe("Listing all address of an agent", () => {
   });
 });
 
-describe("Listing one specific address", () => {
-  test("Should return an specific address", async () => {
+describe("Listing a specific address", () => {
+  test("Should return a specific address", async () => {
     const response = await request(app)
       .get(`/address/${address1.id}`)
       .set("Authorization", `Bearer ${healthAgent1.token}`);
@@ -267,6 +267,6 @@ describe("Deleting an address", () => {
 
     expect(response.status).toEqual(200);
     expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toEqual("address deleted with sucess");
+    expect(response.body.message).toEqual("address deleted with success");
   });
 });

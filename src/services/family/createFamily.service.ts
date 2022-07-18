@@ -9,7 +9,7 @@ export const createFamilyService = async ({ name, address_id }: iCreateFamily): 
   const addressRepository = AppDataSource.getRepository(Address);
 
   if (!name) {
-    throw new AppError("Name cannot be null", 400);
+    throw new AppError("name cannot be null", 400);
   }
 
   const findAddress = await addressRepository.findOneBy({
@@ -17,13 +17,13 @@ export const createFamilyService = async ({ name, address_id }: iCreateFamily): 
   });
 
   if (!findAddress) {
-    throw new AppError("Address not found", 404);
+    throw new AppError("address not found", 404);
   }
 
   const findFamily = await familyRepository.findOneBy({ address: findAddress });
 
   if (findFamily) {
-    throw new AppError("Address already has a registered family");
+    throw new AppError("address already has a registered family");
   }
 
   const newFamily = await familyRepository.save({
