@@ -1,28 +1,30 @@
 import { ITestHealthAgent } from "../../interfaces/healthAgent";
 import { DataSource } from "typeorm";
 import AppDataSource from "../../data-source";
+import { connection } from "./1.healthAgent.test";
 import app from "../../app";
 import request from "supertest";
 import { IUpdateAddress } from "../../interfaces/address";
+import { healthAgent1 } from "./1.healthAgent.test";
 
-let connection: DataSource;
+// let connection: DataSource;
 
 beforeAll(async () => {
-  await AppDataSource.initialize()
-    .then((res) => {
-      connection = res;
-    })
-    .catch((err) => {
-      console.error("Error during DataSource initialization", err);
-    });
+  // await AppDataSource.initialize()
+  //   .then((res) => {
+  //     connection = res;
+  //   })
+  //   .catch((err) => {
+  //     console.error("Error during DataSource initialization", err);
+  //   });
 
-  const createAgent1 = await request(app).post("/register").send(healthAgent1);
+  // const createAgent1 = await request(app).post("/register").send(healthAgent1);
   const createAgent2 = await request(app).post("/register").send(healthAgent2);
-  healthAgent1.id = createAgent1.body.id;
+  // healthAgent1.id = createAgent1.body.id;
   healthAgent2.id = createAgent2.body.id;
 
-  const tokenAgent1 = await request(app).post("/login").send(loginAgent1);
-  healthAgent1.token = tokenAgent1.body.token;
+  // const tokenAgent1 = await request(app).post("/login").send(loginAgent1);
+  // healthAgent1.token = tokenAgent1.body.token;
 
   const tokenAgent2 = await request(app).post("/login").send(loginAgent2);
   healthAgent2.token = tokenAgent2.body.token;
@@ -32,16 +34,11 @@ afterAll(async () => {
   await connection.destroy();
 });
 
-const healthAgent1: ITestHealthAgent = {
-  name: "agent 1",
-  password: "abC123!@#",
-  email: "agent1@mail.com",
-};
-
-const loginAgent1 = {
-  email: "agent1@mail.com",
-  password: "abC123!@#",
-};
+// const healthAgent1: ITestHealthAgent = {
+//   name: "agent 1",
+//   password: "abC123!@#",
+//   email: "agent1@mail.com",
+// };
 
 const healthAgent2: ITestHealthAgent = {
   name: "agent 2",

@@ -4,7 +4,7 @@ import app from "../../app";
 import request from "supertest";
 import { ITestHealthAgent } from "../../interfaces/healthAgent";
 
-let connection: DataSource;
+export let connection: DataSource;
 
 beforeAll(async () => {
   await AppDataSource.initialize()
@@ -16,11 +16,11 @@ beforeAll(async () => {
     });
 });
 
-afterAll(async () => {
-  await connection.destroy();
-});
+// afterAll(async () => {
+//   await connection.destroy();
+// });
 
-const healthAgent1: ITestHealthAgent = {
+export const healthAgent1: ITestHealthAgent = {
   name: "agent 1",
   password: "abC123!@#",
   email: "agent1@mail.com",
