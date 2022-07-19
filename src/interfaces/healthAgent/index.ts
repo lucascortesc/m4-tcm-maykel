@@ -16,7 +16,7 @@ export interface IResponseHealthAgent {
   id: string;
   name: string;
   email: string;
-  isactive: string;
+  isactive: boolean;
 }
 
 export interface IUpdateHealthAgent {
