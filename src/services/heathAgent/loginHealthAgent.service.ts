@@ -9,11 +9,11 @@ const loginHealthAgentService = async (email: string, password: string) => {
   const healthAgentRepository = AppDataSource.getRepository(Agent);
 
   if (!email) {
-    throw new AppError("e-mail is required on body request");
+    throw new AppError("E-mail is required on body request");
   }
 
   if (!password) {
-    throw new AppError("password is required on body request");
+    throw new AppError("Password is required on body request");
   }
 
   const agents = await healthAgentRepository.findOneBy({ email: email });

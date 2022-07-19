@@ -50,7 +50,7 @@ describe("Creating an agent", () => {
 
     expect(response.status).toEqual(400);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("name is required on body request");
+    expect(response.body.error).toEqual("Name is required on body request");
   });
 
   test("Should return email already exists", async () => {
@@ -58,7 +58,7 @@ describe("Creating an agent", () => {
 
     expect(response.status).toEqual(400);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("e-mail already exists");
+    expect(response.body.error).toEqual("E-mail already exists");
   });
 
   test("Should return an error for weak password", async () => {
@@ -71,7 +71,7 @@ describe("Creating an agent", () => {
     expect(response.status).toEqual(400);
     expect(response.body).toHaveProperty("error");
     expect(response.body.error).toEqual(
-      "password must contain at least 8 characters, 1 capital letter, 1 lower case, 1 number and 1 special character"
+      "Password must contain at least 8 characters, 1 capital letter, 1 lower case, 1 number and 1 special character"
     );
   });
 });
@@ -218,6 +218,6 @@ describe("Reactivating an agent", () => {
 
     expect(response.status).toEqual(400);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("agent is already active");
+    expect(response.body.error).toEqual("Agent is already active");
   });
 });

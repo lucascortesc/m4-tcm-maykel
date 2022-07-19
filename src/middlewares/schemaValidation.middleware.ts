@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { ValidationError } from "yup";
 import { ObjectSchema } from "yup";
+import { AppError } from "../errors/appError";
 
 export const schemaValidation =
   (schema: ObjectSchema<any>) => async (req: Request, res: Response, next: NextFunction) => {
@@ -10,9 +11,7 @@ export const schemaValidation =
       next();
     } catch (error) {
       if (error instanceof ValidationError) {
-        return res.status(400).json({
-          error: error.errors.join("; "),
-        });
+        throw new AppError(error.errors.join("; "));
       }
     }
   };

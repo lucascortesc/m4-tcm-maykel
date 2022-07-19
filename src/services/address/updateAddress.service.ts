@@ -16,7 +16,7 @@ export const updateAddressService = async (id: string, agentId: string, data: IU
   }
 
   if (!address) {
-    throw new AppError("address does not exists", 404);
+    throw new AppError("Address does not exists", 404);
   }
 
   if (agentId !== address.agent.id) {
@@ -34,7 +34,7 @@ export const updateAddressService = async (id: string, agentId: string, data: IU
   const updatedAddress = await addressRepository.findOneBy({ id });
 
   if (!updatedAddress) {
-    throw new AppError("address does not exist", 404);
+    throw new AppError("Address does not exist", 404);
   }
 
   const withoutAgent = {

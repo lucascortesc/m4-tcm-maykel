@@ -9,15 +9,15 @@ const updateFamilyService = async (data: iUpdateFamily, id: string, userId: stri
   const findFamily = await getFamilyRepo.findOneBy({ id: id });
 
   if (data.id) {
-    throw new AppError("you can't change the family id", 403);
+    throw new AppError("You can't change the family id", 403);
   }
 
   if (data.address_id) {
-    throw new AppError("you can't change the address id", 403);
+    throw new AppError("You can't change the address id", 403);
   }
 
   if (!findFamily) {
-    throw new AppError("family not found", 404);
+    throw new AppError("Family not found", 404);
   }
 
   const getAddressRepo = AppDataSource.getRepository(Address);
@@ -36,7 +36,7 @@ const updateFamilyService = async (data: iUpdateFamily, id: string, userId: stri
   const findFamilyAfterUpdate = await getFamilyRepo.findOneBy({ id: id });
 
   if (!findFamilyAfterUpdate) {
-    throw new AppError("family not found", 404);
+    throw new AppError("Family not found", 404);
   }
 
   return {

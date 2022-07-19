@@ -12,13 +12,13 @@ export const listAllPacientsFromFamilyService = async (familyId: string, agentId
   const agent = await agentRepository.findOneBy({ id: agentId });
 
   if (!agent) {
-    throw new AppError("agent not found", 404);
+    throw new AppError("Agent not found", 404);
   }
 
   const family = await familyRepository.findOneBy({ id: familyId });
 
   if (!family) {
-    throw new AppError("family not found", 404);
+    throw new AppError("Family not found", 404);
   }
 
   if (family.address.agent.id !== agentId) {

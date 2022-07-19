@@ -133,7 +133,7 @@ describe("Creating a pacient", () => {
 
     expect(response.status).toEqual(400);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("age is required on body request");
+    expect(response.body.error).toEqual("Age is required on body request");
   });
 
   test("Should return pacient already exists", async () => {
@@ -144,7 +144,7 @@ describe("Creating a pacient", () => {
 
     expect(response.status).toEqual(400);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("pacient already exists");
+    expect(response.body.error).toEqual("Pacient already exists");
   });
 
   test("Should return family not found", async () => {
@@ -163,7 +163,7 @@ describe("Creating a pacient", () => {
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("family not found");
+    expect(response.body.error).toEqual("Family not found");
   });
 
   test("Should return an error for an unauthenticated agent", async () => {
@@ -211,7 +211,7 @@ describe("Listing a specific pacient", () => {
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("pacient not found");
+    expect(response.body.error).toEqual("Pacient not found");
   });
 
   test("Should return an error when agent is not the owner of the pacient", async () => {
@@ -237,11 +237,11 @@ describe("Updating a pacient", () => {
   test("Should update a pacient", async () => {
     const response = await request(app)
       .patch(`/pacient/${pacient.id}`)
-      .send({ name: "pacient updated" })
+      .send({ name: "Pacient updated" })
       .set("Authorization", `Bearer ${healthAgent1.token}`);
 
     expect(response.status).toEqual(200);
-    expect(response.body.name).toEqual("pacient updated");
+    expect(response.body.name).toEqual("Pacient updated");
   });
 
   test("Should return pacient not found", async () => {
@@ -252,7 +252,7 @@ describe("Updating a pacient", () => {
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("pacient not found");
+    expect(response.body.error).toEqual("Pacient not found");
   });
 
   test("Should return an error when trying to update pacient id", async () => {
@@ -263,7 +263,7 @@ describe("Updating a pacient", () => {
 
     expect(response.status).toEqual(403);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("you can't change the pacient id");
+    expect(response.body.error).toEqual("You can't change the pacient id");
   });
 
   test("Should return an error when trying to update family id", async () => {
@@ -274,7 +274,7 @@ describe("Updating a pacient", () => {
 
     expect(response.status).toEqual(403);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("you can't change the family id");
+    expect(response.body.error).toEqual("You can't change the family id");
   });
 
   test("Should return an error when agent is not the owner of the pacient", async () => {
@@ -318,7 +318,7 @@ describe("Deleting a pacient", () => {
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("pacient not found");
+    expect(response.body.error).toEqual("Pacient not found");
   });
 
   test("Should return an error for an unauthenticated agent", async () => {
@@ -336,6 +336,6 @@ describe("Deleting a pacient", () => {
 
     expect(response.status).toEqual(200);
     expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toEqual("pacient deleted with success");
+    expect(response.body.message).toEqual("Pacient deleted with success");
   });
 });

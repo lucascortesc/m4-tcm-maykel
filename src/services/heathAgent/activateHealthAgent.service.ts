@@ -9,11 +9,11 @@ export const activateHealthAgentService = async (id: string): Promise<IUpdateHea
   const agent = await healthAgentRepository.findOneBy({ id: id });
 
   if (!agent) {
-    throw new AppError("agent not found", 404);
+    throw new AppError("Agent not found", 404);
   }
 
   if (agent.isactive) {
-    throw new AppError("agent is already active");
+    throw new AppError("Agent is already active");
   }
 
   await healthAgentRepository.update(id, { isactive: true });
@@ -21,10 +21,10 @@ export const activateHealthAgentService = async (id: string): Promise<IUpdateHea
   const updatedAgent = await healthAgentRepository.findOneBy({ id: id });
 
   if (!updatedAgent) {
-    throw new AppError("something wrong with de server, try again");
+    throw new AppError("Something wrong with de server, try again");
   }
   if (!updatedAgent.isactive) {
-    throw new AppError("something went wrong and agent has not been activated, try again");
+    throw new AppError("Something went wrong and agent has not been activated, try again");
   }
 
   const responseAgent = {
