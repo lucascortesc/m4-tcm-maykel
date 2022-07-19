@@ -5,7 +5,11 @@ export const handleAppErrorMiddleware = (error: Error, req: Request, res: Respon
   const formatedError = (message: string) => {
     let formatedMessage = message.charAt(0).toUpperCase() + message.slice(1);
 
-    return formatedMessage.split(".")[0];
+    if (formatedMessage[formatedMessage.length - 1] === ".") {
+      return formatedMessage.slice(0, formatedMessage.length - 1);
+    }
+
+    return formatedMessage;
   };
 
   if (error instanceof AppError) {
