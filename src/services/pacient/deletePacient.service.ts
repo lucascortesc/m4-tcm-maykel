@@ -12,19 +12,19 @@ export const deletePacientService = async (id: string, userId: string) => {
   const findPacient = await getPacientRepository.findOneBy({ id: id });
 
   if (!findPacient) {
-    throw new AppError("pacient not found", 404);
+    throw new AppError("Pacient not found", 404);
   }
 
   const findFamily = await getFamilyRepo.findOneBy({ id: findPacient.family.id });
 
   if (!findFamily) {
-    throw new AppError("family not found", 404);
+    throw new AppError("Family not found", 404);
   }
 
   const findAddress = await getAddressRepo.findOneBy({ id: findFamily.address.id });
 
   if (!findAddress) {
-    throw new AppError("address not found", 404);
+    throw new AppError("Address not found", 404);
   }
 
   if (findAddress.agent.id !== userId) {

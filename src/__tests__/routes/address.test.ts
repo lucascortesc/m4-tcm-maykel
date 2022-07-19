@@ -83,7 +83,7 @@ describe("Creating an address", () => {
 
     expect(response.status).toEqual(400);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("street is required on body request");
+    expect(response.body.error).toEqual("Street is required on body request");
   });
 
   test("Should return address already exists", async () => {
@@ -94,7 +94,7 @@ describe("Creating an address", () => {
 
     expect(response.status).toEqual(400);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("address already exists");
+    expect(response.body.error).toEqual("Address already exists");
   });
 
   test("Should return an error for an unauthenticated agent", async () => {
@@ -142,7 +142,7 @@ describe("Listing a specific address", () => {
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("address not found");
+    expect(response.body.error).toEqual("Address not found");
   });
 
   test("Should return an error when agent is not the owner of the address", async () => {
@@ -183,7 +183,7 @@ describe("Updating an address", () => {
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("address does not exists");
+    expect(response.body.error).toEqual("Address does not exists");
   });
 
   test("Should return an error when trying to update address id", async () => {
@@ -249,7 +249,7 @@ describe("Deleting an address", () => {
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("address does not exists");
+    expect(response.body.error).toEqual("Address does not exists");
   });
 
   test("Should return an error for an unauthenticated agent", async () => {
@@ -267,6 +267,6 @@ describe("Deleting an address", () => {
 
     expect(response.status).toEqual(200);
     expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toEqual("address deleted with success");
+    expect(response.body.message).toEqual("Address deleted with success");
   });
 });

@@ -7,7 +7,7 @@ export const listOnePacientService = async (id: string, agentId: string) => {
   const findOnePacient = await pacientRepository.findOneBy({ id: id });
 
   if (!findOnePacient) {
-    throw new AppError("pacient not found", 404);
+    throw new AppError("Pacient not found", 404);
   }
 
   if (findOnePacient.family.address.agent.id !== agentId) {

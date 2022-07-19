@@ -13,7 +13,7 @@ export const listHomeVisitsService = async (agentId: string): Promise<IHomeVisit
   });
 
   if (!agent) {
-    throw new AppError("Home visits not found", 404);
+    throw new AppError("Agent not found", 404);
   }
 
   const homeVisits = await homeVisitsRepository.find({
@@ -23,7 +23,7 @@ export const listHomeVisitsService = async (agentId: string): Promise<IHomeVisit
   });
 
   if (!homeVisits) {
-    throw new AppError("Home visits not found", 404);
+    throw new AppError("Visits not found", 404);
   }
 
   const formatedVisits = homeVisits.map((visit) => {

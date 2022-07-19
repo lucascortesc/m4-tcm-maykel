@@ -13,7 +13,7 @@ export const updatePacientService = async (
   const pacient = await pacientRepository.findOneBy({ id: pacientId });
 
   if (!pacient) {
-    throw new AppError("pacient not found", 404);
+    throw new AppError("Pacient not found", 404);
   }
 
   const findPacientAgent = await pacientRepository
@@ -31,11 +31,11 @@ export const updatePacientService = async (
   }
 
   if (data.id) {
-    throw new AppError("you can't change the pacient id", 403);
+    throw new AppError("You can't change the pacient id", 403);
   }
 
   if (data.family_id) {
-    throw new AppError("you can't change the family id", 403);
+    throw new AppError("You can't change the family id", 403);
   }
 
   await pacientRepository.update(pacientId, data);
@@ -43,7 +43,7 @@ export const updatePacientService = async (
   const updatedPacient = await pacientRepository.findOneBy({ id: pacientId });
 
   if (!updatedPacient) {
-    throw new AppError("something went wrong with the server, please try again");
+    throw new AppError("Something went wrong with the server, please try again");
   }
 
   const responsePacient = {

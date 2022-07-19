@@ -107,7 +107,7 @@ describe("Creating a family", () => {
 
     expect(response.status).toEqual(400);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("address_id is required on body request");
+    expect(response.body.error).toEqual("Address_id is required on body request");
   });
 
   test("Should return address already has a registered family", async () => {
@@ -118,7 +118,7 @@ describe("Creating a family", () => {
 
     expect(response.status).toEqual(400);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("address already has a registered family");
+    expect(response.body.error).toEqual("Address already has a registered family");
   });
 
   test("Should return address not found", async () => {
@@ -129,7 +129,7 @@ describe("Creating a family", () => {
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("address not found");
+    expect(response.body.error).toEqual("Address not found");
   });
 
   test("Should return an error for an unauthenticated agent", async () => {
@@ -177,7 +177,7 @@ describe("Listing a specific family", () => {
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("family not found");
+    expect(response.body.error).toEqual("Family not found");
   });
 
   test("Should return an error when agent is not the owner of the family", async () => {
@@ -203,11 +203,11 @@ describe("Updating a family", () => {
   test("Should update a family", async () => {
     const response = await request(app)
       .patch(`/family/${family.id}`)
-      .send({ name: "family updated" })
+      .send({ name: "Family updated" })
       .set("Authorization", `Bearer ${healthAgent1.token}`);
 
     expect(response.status).toEqual(200);
-    expect(response.body.name).toEqual("family updated");
+    expect(response.body.name).toEqual("Family updated");
   });
 
   test("Should return family not found", async () => {
@@ -218,7 +218,7 @@ describe("Updating a family", () => {
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("family not found");
+    expect(response.body.error).toEqual("Family not found");
   });
 
   test("Should return an error when trying to update family id", async () => {
@@ -229,7 +229,7 @@ describe("Updating a family", () => {
 
     expect(response.status).toEqual(403);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("you can't change the family id");
+    expect(response.body.error).toEqual("You can't change the family id");
   });
 
   test("Should return an error when trying to update address id", async () => {
@@ -240,7 +240,7 @@ describe("Updating a family", () => {
 
     expect(response.status).toEqual(403);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("you can't change the address id");
+    expect(response.body.error).toEqual("You can't change the address id");
   });
 
   test("Should return an error when agent is not the owner of the family", async () => {
@@ -284,7 +284,7 @@ describe("Deleting a family", () => {
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("family not found");
+    expect(response.body.error).toEqual("Family not found");
   });
 
   test("Should return an error for an unauthenticated agent", async () => {
@@ -302,6 +302,6 @@ describe("Deleting a family", () => {
 
     expect(response.status).toEqual(200);
     expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toEqual("family deleted with success");
+    expect(response.body.message).toEqual("Family deleted with success");
   });
 });

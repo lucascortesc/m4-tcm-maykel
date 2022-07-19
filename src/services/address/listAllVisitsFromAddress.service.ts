@@ -12,7 +12,7 @@ export const listAllVisitsFromAddressService = async (addressId: string, agentId
   const agent = await agentsRepository.findOneBy({ id: agentId });
 
   if (!agent) {
-    throw new AppError("agent not found", 404);
+    throw new AppError("Agent not found", 404);
   }
 
   const address = await addressRepository.findOne({
@@ -20,7 +20,7 @@ export const listAllVisitsFromAddressService = async (addressId: string, agentId
   });
 
   if (!address) {
-    throw new AppError("address not found", 404);
+    throw new AppError("Address not found", 404);
   }
 
   if (address.agent.id !== agentId) {

@@ -10,13 +10,13 @@ const deleteFamilyService = async (id: string, userId: string): Promise<string> 
   const findFamily = await familyRepository.findOneBy({ id: id });
 
   if (!findFamily) {
-    throw new AppError("family not found", 404);
+    throw new AppError("Family not found", 404);
   }
 
   const findAddress = await addressRepository.findOneBy({ id: findFamily.address.id });
 
   if (!findAddress) {
-    throw new AppError("address not found", 404);
+    throw new AppError("Address not found", 404);
   }
 
   if (findAddress.agent.id !== userId) {
@@ -25,7 +25,7 @@ const deleteFamilyService = async (id: string, userId: string): Promise<string> 
 
   await familyRepository.delete(id);
 
-  return "family deleted with success";
+  return "Family deleted with success";
 };
 
 export default deleteFamilyService;

@@ -13,7 +13,7 @@ const createHealthAgentService = async ({
 
   const verifyEmail = await healthAgentRepository.findOneBy({ email: email });
   if (verifyEmail) {
-    throw new AppError("e-mail already exists");
+    throw new AppError("E-mail already exists");
   }
 
   const hashedPassword = await hash(password, 10);

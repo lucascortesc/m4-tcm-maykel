@@ -13,7 +13,7 @@ export const listAddressService = async (addressId: string, userId: string): Pro
   });
 
   if (!address) {
-    throw new AppError("address not found", 404);
+    throw new AppError("Address not found", 404);
   }
 
   if (address.agent.id !== userId) {

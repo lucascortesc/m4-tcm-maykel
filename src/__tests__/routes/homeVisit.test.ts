@@ -113,7 +113,7 @@ describe("Creating a visit", () => {
 
     expect(response.status).toEqual(400);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("message is required on body request");
+    expect(response.body.error).toEqual("Message is required on body request");
   });
 
   test("Should return address not found", async () => {
@@ -128,7 +128,7 @@ describe("Creating a visit", () => {
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("address not found");
+    expect(response.body.error).toEqual("Address not found");
   });
 
   test("Should return an error for an unauthenticated agent", async () => {
@@ -175,7 +175,7 @@ describe("Listing a specific visit", () => {
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("visit not found");
+    expect(response.body.error).toEqual("Visit not found");
   });
 
   test("Should return an error when agent is not the owner of the visit", async () => {
@@ -199,12 +199,12 @@ describe("Updating a visit", () => {
   test("Should update a visit", async () => {
     const response = await request(app)
       .patch(`/visits/${visit.id}`)
-      .send({ message: "visit updated" })
+      .send({ message: "Visit updated" })
       .set("Authorization", `Bearer ${healthAgent1.token}`);
 
     expect(response.status).toEqual(200);
     expect(response.body).toHaveProperty("updated_at");
-    expect(response.body.message).toEqual("visit updated");
+    expect(response.body.message).toEqual("Visit updated");
   });
 
   test("Should return visit not found", async () => {
@@ -215,7 +215,7 @@ describe("Updating a visit", () => {
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("visit not found");
+    expect(response.body.error).toEqual("Visit not found");
   });
 
   test("Should return an error when trying to update visit id", async () => {
@@ -226,7 +226,7 @@ describe("Updating a visit", () => {
 
     expect(response.status).toEqual(403);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("you can't change the visit id");
+    expect(response.body.error).toEqual("You can't change the visit id");
   });
 
   test("Should return an error when trying to update address id", async () => {
@@ -237,7 +237,7 @@ describe("Updating a visit", () => {
 
     expect(response.status).toEqual(403);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("you can't change the address id");
+    expect(response.body.error).toEqual("You can't change the address id");
   });
 
   test("Should return an error when agent is not the owner of the visit", async () => {
@@ -281,7 +281,7 @@ describe("Deleting a visit", () => {
 
     expect(response.status).toEqual(404);
     expect(response.body).toHaveProperty("error");
-    expect(response.body.error).toEqual("visit not found");
+    expect(response.body.error).toEqual("Visit not found");
   });
 
   test("Should return an error for an unauthenticated agent", async () => {
@@ -299,6 +299,6 @@ describe("Deleting a visit", () => {
 
     expect(response.status).toEqual(200);
     expect(response.body).toHaveProperty("message");
-    expect(response.body.message).toEqual("visit deleted with success");
+    expect(response.body.message).toEqual("Visit deleted with success");
   });
 });
