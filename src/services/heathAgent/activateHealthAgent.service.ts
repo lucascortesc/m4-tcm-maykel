@@ -2,7 +2,6 @@ import AppDataSource from "../../data-source";
 import { Agent } from "../../entities/healthAgent.entity";
 import { AppError } from "../../errors/appError";
 import { IEmailRequest } from "../../interfaces/emails";
-// import { IUpdateHealthAgent } from "../../interfaces/healthAgent";
 import { sendEmail } from "../../utils/sendEmail.util";
 
 export const activateHealthAgentService = async (id: string): Promise<string> => {
@@ -33,24 +32,4 @@ export const activateHealthAgentService = async (id: string): Promise<string> =>
   await sendEmail(emailData);
 
   return "Reactivate e-mail sent";
-
-  // await healthAgentRepository.update(id, { isactive: true });
-
-  // const updatedAgent = await healthAgentRepository.findOneBy({ id: id });
-
-  // if (!updatedAgent) {
-  //   throw new AppError("Something wrong with de server, try again");
-  // }
-  // if (!updatedAgent.isactive) {
-  //   throw new AppError("Something went wrong and agent has not been activated, try again");
-  // }
-
-  // const responseAgent = {
-  //   id: updatedAgent.id,
-  //   name: updatedAgent.name,
-  //   email: updatedAgent.email,
-  //   isactive: updatedAgent.isactive,
-  // };
-
-  // return responseAgent;
 };
