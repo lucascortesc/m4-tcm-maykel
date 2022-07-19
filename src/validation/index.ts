@@ -89,7 +89,7 @@ export const updatePacientSchema = object()
     family_id: string(),
     is_owner: boolean(),
   })
-  .unknown(false);
+  .noUnknown(true);
 
 export const visitsSchema = object()
   .shape({
