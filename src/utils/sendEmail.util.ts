@@ -9,24 +9,23 @@ export const sendEmail = async ({ subject, text, to }: IEmailRequest) => {
     port: 587,
     secure: false,
     auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
+      user: "no-reply.cipad@outlook.com",
+      pass: "VascoDaGama",
     },
   });
 
   await transporter
     .sendMail({
-      from: "tcm-t11@outlook.com",
+      from: "no-reply.cipad@outlook.com",
       to: to,
       subject: subject,
       html: text,
     })
     .then(() => {
-      console.log("Email successfully sent");
+      console.log("Email sent with success");
     })
     .catch((err) => {
       console.log(err);
-
-      throw new AppError("Error sending email, try again later");
+      throw new AppError("Error sending email, try again later", 418);
     });
 };

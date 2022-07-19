@@ -13,7 +13,7 @@ export const updatePacientService = async (
   const pacient = await pacientRepository.findOneBy({ id: pacientId });
 
   if (!pacient) {
-    throw new AppError("Pacient not found", 404);
+    throw new AppError("pacient not found", 404);
   }
 
   const findPacientAgent = await pacientRepository
@@ -27,15 +27,15 @@ export const updatePacientService = async (
   const pacientAgentId = findPacientAgent[0].family.address.agent.id;
 
   if (pacientAgentId !== agentId) {
-    throw new AppError("Agent does not have  to pacient", 401);
+    throw new AppError("Agent does not have access to pacient", 403);
   }
 
   if (data.id) {
-    throw new AppError("You can't change the pacient id", 403);
+    throw new AppError("you can't change the pacient id", 403);
   }
 
   if (data.family_id) {
-    throw new AppError("You can't change the family id from pacient", 403);
+    throw new AppError("you can't change the family id", 403);
   }
 
   await pacientRepository.update(pacientId, data);

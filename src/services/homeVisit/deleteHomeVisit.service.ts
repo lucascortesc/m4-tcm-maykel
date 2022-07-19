@@ -7,7 +7,7 @@ export const deleteHomeVisitService = async (id: string, userId: string) => {
   const findVisit = await getVisitsRepo.findOneBy({ id: id });
 
   if (!findVisit) {
-    throw new AppError("Visit not found", 404);
+    throw new AppError("visit not found", 404);
   }
 
   if (findVisit.agent_id.id !== userId) {
@@ -16,5 +16,5 @@ export const deleteHomeVisitService = async (id: string, userId: string) => {
 
   await getVisitsRepo.delete(id);
 
-  return "User deleted with success";
+  return "visit deleted with success";
 };
