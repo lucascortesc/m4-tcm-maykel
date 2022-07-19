@@ -29,7 +29,7 @@ const createHealthAgentService = async ({ name, email, password }: ICreateHealth
   const emailData:IEmailRequest = {
     subject:"Ativação de usuário",
     text:`<h1>Por favor confirme seu email<h1>
-          <h3>Seja bem-vindo ao CIPAD ${name}, ative sua conta clicando no link: ${protocol}://${host}/agent/activate/${activationToken} para utilizar o nosso sistema</h3>
+          <h3>Seja bem-vindo ao CIPAD ${name}, ative sua conta clicando no link: https://password-recovery-cipad.vercel.app/activate/${activationToken} para utilizar o nosso sistema</h3>
     `,
     to:email
   }
