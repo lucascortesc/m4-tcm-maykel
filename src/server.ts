@@ -2,7 +2,7 @@ import AppDataSource from "./data-source";
 import app from "./app";
 
 const InitConnection = async () => {
-  let PORT = process.env.PORT || 3333;
+  let PORT = process.env.PORT || 8080;
 
   if (process.env.NODE_ENV === "test") {
     PORT = 3000;
