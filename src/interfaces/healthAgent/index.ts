@@ -11,6 +11,14 @@ export interface IHealthAgent {
   isactive: boolean;
   password: string;
 }
+
+export interface IResponseHealthAgent {
+  id: string;
+  name: string;
+  email: string;
+  isactive: string;
+}
+
 export interface IUpdateHealthAgent {
   id?: string;
   email?: string;
