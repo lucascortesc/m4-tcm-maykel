@@ -7,13 +7,13 @@ import deleteHomeVisitController from "../controllers/homeVisit/deleteHomeVisit.
 import { authorization } from "../middlewares/Authorization.middleware";
 import { schemaValidation } from "../middlewares/schemaValidation.middleware";
 import verifyHomeVisit from "../middlewares/verifyHomeVisit.middleware";
-import { visitsSchema } from "../validation";
+import { updateVisitsSchema, visitsSchema } from "../validation";
 import { userIsActive } from "../middlewares/userIsActive.middleware";
 
 const homeVisitRoutes = Router();
 
 homeVisitRoutes.post("", authorization, userIsActive, schemaValidation(visitsSchema), createHomeVisitController);
-homeVisitRoutes.patch("/:id", authorization, userIsActive, verifyHomeVisit, updateHomeVisitController);
+homeVisitRoutes.patch("/:id", authorization, userIsActive, schemaValidation(updateVisitsSchema), verifyHomeVisit, updateHomeVisitController);
 homeVisitRoutes.delete("/:id", authorization, userIsActive, verifyHomeVisit, deleteHomeVisitController);
 homeVisitRoutes.get("", authorization, userIsActive, listHomeVisitsController);
 homeVisitRoutes.get("/:id", authorization, userIsActive, listOneVisitController);
