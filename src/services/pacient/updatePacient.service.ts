@@ -16,15 +16,7 @@ export const updatePacientService = async (
     throw new AppError("Pacient not found", 404);
   }
 
-  const findPacientAgent = await pacientRepository
-    .createQueryBuilder("pacient")
-    .leftJoinAndSelect("pacient.family", "family")
-    .leftJoinAndSelect("family.address", "address")
-    .leftJoinAndSelect("address.agent", "agent")
-    .where("pacient.id = :pacientId", { pacientId })
-    .getMany();
-
-  const pacientAgentId = findPacientAgent[0].family.address.agent.id;
+  const pacientAgentId = pacient.family.address.agent.id;
 
   if (pacientAgentId !== agentId) {
     throw new AppError("Agent does not have access to pacient", 403);

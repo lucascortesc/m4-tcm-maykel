@@ -11,35 +11,8 @@ import { userIsActive } from "../middlewares/userIsActive.middleware";
 
 export const pacientRoutes = Router();
 
-pacientRoutes.post(
-  "",
-  authorization,
-  userIsActive,
-  schemaValidation(pacientSchema),
-  createPacient
-);
-pacientRoutes.patch(
-  "/:id",
-  authorization,
-  userIsActive,
-  schemaValidation(updatePacientSchema),
-  updatePacient
-);
-pacientRoutes.get(
-  "",
-  authorization,
-  userIsActive,
-  listPacientByAgent
-);
-pacientRoutes.get(
-  "/:id",
-  authorization,
-  userIsActive,
-  listOnePatientController
-);
-pacientRoutes.delete(
-  "/:id",
-  authorization,
-  userIsActive,
-  deletePacientController
-);
+pacientRoutes.post("", authorization, userIsActive, schemaValidation(pacientSchema), createPacient);
+pacientRoutes.patch("/:id", authorization, userIsActive, schemaValidation(updatePacientSchema), updatePacient);
+pacientRoutes.get("", authorization, userIsActive, listPacientByAgent);
+pacientRoutes.get("/:id", authorization, userIsActive, listOnePatientController);
+pacientRoutes.delete("/:id", authorization, userIsActive, deletePacientController);
