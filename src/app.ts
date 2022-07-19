@@ -2,6 +2,7 @@ import express from "express";
 import "express-async-errors";
 import { handleAppErrorMiddleware } from "./middlewares/handleAppError.middleware";
 import addressRoutes from "./routes/address.routes";
+import emailRoutes from "./routes/email.routes";
 import familyRoutes from "./routes/family.routes";
 import agentRoutes from "./routes/healthAgent.routes";
 import homeVisitRoutes from "./routes/homeVisit.routes";
@@ -15,7 +16,7 @@ app.use("/family", familyRoutes);
 app.use("/address", addressRoutes);
 app.use("/visits", homeVisitRoutes);
 app.use("/pacient", pacientRoutes);
-
+app.use("/email", emailRoutes)
 app.use(handleAppErrorMiddleware);
 
 export default app;

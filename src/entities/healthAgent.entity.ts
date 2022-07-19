@@ -20,6 +20,9 @@ export class Agent {
   @Column()
   isactive: boolean;
 
+  @Column({nullable:true})
+  activationToken:string
+
   @OneToMany(() => Address, (Address) => Address.agent)
   address: Address[];
 }
