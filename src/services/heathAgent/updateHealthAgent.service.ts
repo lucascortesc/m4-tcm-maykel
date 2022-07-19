@@ -1,10 +1,10 @@
 import AppDataSource from "../../data-source";
 import { Agent } from "../../entities/healthAgent.entity";
 import { AppError } from "../../errors/appError";
-import { IHealthAgent, IUpdateHealthAgent } from "../../interfaces/healthAgent";
+import { IResponseHealthAgent, IUpdateHealthAgent } from "../../interfaces/healthAgent";
 import { hash } from "bcrypt";
 
-const updateHealthAgentService = async (id: string, data: IUpdateHealthAgent): Promise<IHealthAgent> => {
+const updateHealthAgentService = async (id: string, data: IUpdateHealthAgent): Promise<IResponseHealthAgent> => {
   const healthAgentRepository = AppDataSource.getRepository(Agent);
 
   if (data.id) {
@@ -21,12 +21,21 @@ const updateHealthAgentService = async (id: string, data: IUpdateHealthAgent): P
     password: data.password ? await hash(data.password, 10) : agent?.password,
   });
 
-  const updatedAgent = await healthAgentRepository.findOneBy({ id: id });
-  if (!updatedAgent) {
+  const healthAgent = await healthAgentRepository.findOneBy({ id: id });
+
+  if (!healthAgent) {
     throw new AppError("Agent can not be updated, don't worry it's not your fault");
   }
-  const newUpdatedAgent: any = { ...updatedAgent };
-  return { ...newUpdatedAgent, password: undefined };
+
+  const newAgent: IResponseHealthAgent = {
+    id: healthAgent.id,
+    name: healthAgent.name,
+    email: healthAgent.email,
+    isactive: healthAgent.isactive,
+  };
+
+  return newAgent;
+  
 };
 
 export default updateHealthAgentService;

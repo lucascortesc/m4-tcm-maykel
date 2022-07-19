@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { activateHealthAgentTokenController } from "../controllers/healthAgent/activateHealthAgentToken.controller";
 import { activateHealthAgentController } from "../controllers/healthAgent/activateHeathAgent.controller";
 import createHealthAgentController from "../controllers/healthAgent/createHealthAgent.controller";
 import deleteHealthAgentController from "../controllers/healthAgent/deleteHealthAgent.contoller";
@@ -28,5 +29,7 @@ agentRoutes.patch(
 agentRoutes.patch("/agent/activate", authorization, activateHealthAgentController);
 agentRoutes.post("/agent/password", sendResetPasswordController);
 agentRoutes.patch("/agent/password/:token", schemaValidation(updateAgentSchema), resetPasswordController);
+
+agentRoutes.get("/agent/activate/:activateToken", activateHealthAgentTokenController);
 
 export default agentRoutes;

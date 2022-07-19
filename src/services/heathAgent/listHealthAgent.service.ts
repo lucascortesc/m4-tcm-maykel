@@ -1,19 +1,26 @@
 import { Agent } from "../../entities/healthAgent.entity";
 import AppDataSource from "../../data-source";
-import { IHealthAgent } from "../../interfaces/healthAgent";
+import { IHealthAgent, IResponseHealthAgent } from "../../interfaces/healthAgent";
 import { AppError } from "../../errors/appError";
 
-const listHealthAgentService = async (id: string): Promise<IHealthAgent> => {
+const listHealthAgentService = async (id: string): Promise<IResponseHealthAgent> => {
   const healthAgentRepository = AppDataSource.getRepository(Agent);
 
-  const agents = await healthAgentRepository.findOneBy({ id: id });
+  const healthAgent = await healthAgentRepository.findOneBy({ id: id });
 
-  if (!agents) {
+  if (!healthAgent) {
     throw new AppError("User does not exists", 400);
   }
-  const newAgent: any = { ...agents };
+ 
 
-  return { ...newAgent, password: undefined };
+  const newAgent: IResponseHealthAgent = {
+    id: healthAgent.id,
+    name: healthAgent.name,
+    email: healthAgent.email,
+    isactive: healthAgent.isactive,
+  };
+
+  return newAgent;
 };
 
 export default listHealthAgentService;

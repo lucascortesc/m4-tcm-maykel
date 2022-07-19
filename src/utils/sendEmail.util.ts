@@ -22,7 +22,7 @@ export const sendEmail = async ({ subject, text, to }: IEmailRequest) => {
       html: text,
     })
     .then(() => {
-      console.log("Email send with success");
+      console.log("Email sent with success");
     })
     .catch((err) => {
       console.log(err);

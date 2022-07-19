@@ -17,7 +17,6 @@ app.use("/family", familyRoutes);
 app.use("/address", addressRoutes);
 app.use("/visits", homeVisitRoutes);
 app.use("/pacient", pacientRoutes);
-
 app.use(handleAppErrorMiddleware);
 
 export default app;
