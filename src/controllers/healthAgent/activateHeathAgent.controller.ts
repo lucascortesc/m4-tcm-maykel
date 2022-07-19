@@ -4,7 +4,7 @@ import { activateHealthAgentService } from "../../services/heathAgent/activateHe
 export const activateHealthAgentController = async (req: Request, res: Response) => {
   const agentId = req.userId;
 
-  const user = await activateHealthAgentService(agentId);
+  const message = await activateHealthAgentService(agentId);
 
-  return res.json(user);
+  return res.json({ message: message });
 };
