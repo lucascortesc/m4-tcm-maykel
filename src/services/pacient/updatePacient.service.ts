@@ -30,6 +30,13 @@ export const updatePacientService = async (
     throw new AppError("You can't change the family id", 403);
   }
 
+  if (data.cpf) {
+    const validateCpf = await pacientRepository.findOneBy({ cpf: data.cpf });
+    if (validateCpf) {
+      throw new AppError("Cpf is already registered");
+    }
+  }
+
   await pacientRepository.update(pacientId, data);
 
   const updatedPacient = await pacientRepository.findOneBy({ id: pacientId });
