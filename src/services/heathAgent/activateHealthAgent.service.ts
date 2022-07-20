@@ -1,9 +1,10 @@
 import AppDataSource from "../../data-source";
 import { Agent } from "../../entities/healthAgent.entity";
 import { AppError } from "../../errors/appError";
-import { IUpdateHealthAgent } from "../../interfaces/healthAgent";
+import { IEmailRequest } from "../../interfaces/emails";
+import { sendEmail } from "../../utils/sendEmail.util";
 
-export const activateHealthAgentService = async (id: string): Promise<IUpdateHealthAgent> => {
+export const activateHealthAgentService = async (id: string): Promise<string> => {
   const healthAgentRepository = AppDataSource.getRepository(Agent);
 
   const agent = await healthAgentRepository.findOneBy({ id: id });
@@ -16,23 +17,19 @@ export const activateHealthAgentService = async (id: string): Promise<IUpdateHea
     throw new AppError("Agent is already active");
   }
 
-  await healthAgentRepository.update(id, { isactive: true });
+  const activationToken = (Math.random() + 1).toString(36).substring(7);
 
-  const updatedAgent = await healthAgentRepository.findOneBy({ id: id });
-
-  if (!updatedAgent) {
-    throw new AppError("Something wrong with de server, try again");
-  }
-  if (!updatedAgent.isactive) {
-    throw new AppError("Something went wrong and agent has not been activated, try again");
-  }
-
-  const responseAgent = {
-    id: updatedAgent.id,
-    name: updatedAgent.name,
-    email: updatedAgent.email,
-    isactive: updatedAgent.isactive,
+  const emailData: IEmailRequest = {
+    subject: "Ativação de usuário",
+    text: `<h1>Por favor confirme seu email<h1>
+          <h3>${agent.name}, ative sua conta clicando no link: https://password-recovery-cipad.vercel.app/activate/${activationToken} para utilizar o nosso sistema</h3>
+    `,
+    to: agent.email,
   };
 
-  return responseAgent;
+  await healthAgentRepository.update(id, { activationToken });
+
+  await sendEmail(emailData);
+
+  return "Reactivate e-mail sent";
 };
