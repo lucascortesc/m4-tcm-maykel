@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source";
 import { Pacient } from "../../entities/pacient.entity";
 import { AppError } from "../../errors/appError";
 
-export const listOnePacientService = async (id: string) => {
+export const listOnePacientService = async (id: string, agentId: string) => {
   const pacientRepository = AppDataSource.getRepository(Pacient);
   const findOnePacient = await pacientRepository.findOneBy({ id: id });
 
@@ -10,7 +10,7 @@ export const listOnePacientService = async (id: string) => {
     throw new AppError("Pacient not found", 404);
   }
 
-  if (findOnePacient.family.address.agent.id) {
+  if (findOnePacient.family.address.agent.id !== agentId) {
     throw new AppError("Agent does not have access to pacient", 403);
   }
 
