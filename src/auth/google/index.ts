@@ -3,11 +3,10 @@ import * as queryString from "query-string";
 
 const queryParams = queryString.stringify({
   client_id: process.env.GOOGLE_ID,
-  redirect_uri: "http://localhost:3000/auth/google",
-  scope: [
-    "https://www.googleapis.com/auth/userinfo.email",
-    "https://www.googleapis.com/auth/userinfo.profile",
-  ].join(" "),
+  redirect_uri: "https://cipad.herokuapp.com/auth/google",
+  scope: ["https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"].join(
+    " "
+  ),
   response_type: "code",
   access_type: "offline",
   prompt: "consent",
@@ -22,7 +21,7 @@ export async function getGoogleToken(code: any) {
     data: {
       client_id: process.env.GOOGLE_ID,
       client_secret: process.env.GOOGLE_SECRET,
-      redirect_uri: "http://localhost:3000/auth/google",
+      redirect_uri: "https://cipad.herokuapp.com/auth/google",
       grant_type: "authorization_code",
       code,
     },
@@ -39,8 +38,6 @@ export async function getGoogleInfo(token: any) {
       Authorization: `Bearer ${token}`,
     },
   });
-
-  console.log(data);
 
   return data;
 }
