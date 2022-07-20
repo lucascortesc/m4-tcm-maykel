@@ -25,7 +25,7 @@ const deleteFamilyService = async (id: string, userId: string): Promise<string> 
 
   await familyRepository.delete(id);
 
-  return "Family deleted with success.";
+  return "Family deleted with success";
 };
 
 export default deleteFamilyService;

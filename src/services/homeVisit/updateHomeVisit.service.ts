@@ -8,12 +8,8 @@ const updateHomeVisitService = async (id: string, data: IUpdateHomeVisit, userId
   const homeVisitRepository = AppDataSource.getRepository(HomeVisit);
   const addressRepository = AppDataSource.getTreeRepository(Address);
 
-  if (!homeVisitRepository) {
-    throw new AppError("teste", 400);
-  }
-
   if (data.id) {
-    throw new AppError("You can't change the home visit id.", 403);
+    throw new AppError("You can't change the visit id", 403);
   }
 
   if (data.agent_id) {
@@ -21,7 +17,7 @@ const updateHomeVisitService = async (id: string, data: IUpdateHomeVisit, userId
   }
 
   if (data.address_id) {
-    throw new AppError("You can't change the agent id", 403);
+    throw new AppError("You can't change the address id", 403);
   }
 
   const homeVisit = await homeVisitRepository.findOneBy({ id: id });

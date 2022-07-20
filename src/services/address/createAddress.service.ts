@@ -30,7 +30,7 @@ export const createAddressService = async (
   }
 
   if (findAddress) {
-    throw new AppError("Adress already exists");
+    throw new AppError("Address already exists");
   }
 
   const newAddress = await addressRepository.save({

@@ -3,8 +3,9 @@ import createHealthAgentService from "../../services/heathAgent/createHealthAgen
 
 const createHealthAgentController = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
-
-  const healthAgent = await createHealthAgentService({ name, email, password });
+  const protocol = req.protocol
+  const host = req.get('host')
+  const healthAgent = await createHealthAgentService({ name, email, password }, protocol, host);
 
   return res.status(201).json(healthAgent);
 };

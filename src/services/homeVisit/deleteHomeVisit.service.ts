@@ -16,5 +16,5 @@ export const deleteHomeVisitService = async (id: string, userId: string) => {
 
   await getVisitsRepo.delete(id);
 
-  return "User deleted with success";
+  return "Visit deleted with success";
 };

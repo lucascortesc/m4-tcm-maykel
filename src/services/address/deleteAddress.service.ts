@@ -8,7 +8,7 @@ export const deleteAddressService = async (id: string, agentId: string): Promise
   const findAddress = await addressRepository.findOneBy({ id: id });
 
   if (!findAddress) {
-    throw new AppError("Address does not exists.");
+    throw new AppError("Address does not exists", 404);
   }
 
   if (findAddress.agent.id !== agentId) {
@@ -17,5 +17,5 @@ export const deleteAddressService = async (id: string, agentId: string): Promise
 
   await addressRepository.delete(id);
 
-  return "Address deleted with sucess";
+  return "Address deleted with success";
 };
