@@ -16,7 +16,7 @@ export const schemaValidation =
         }
       }
 
-      if (req.body !== validation) {
+      if (invalidFields.length > 0) {
         throw new ValidationError(
           invalidFields.length > 1
             ? `(${invalidFields.join(", ")}) are invalids fields`
