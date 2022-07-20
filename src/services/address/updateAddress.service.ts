@@ -37,7 +37,7 @@ export const updateAddressService = async (id: string, agentId: string, data: IU
     throw new AppError("Address does not exist", 404);
   }
 
-  const withoutAgent = {
+  const formatedAddress = {
     id: id,
     agent_id: agentId,
     state: updatedAddress.state,
@@ -47,5 +47,5 @@ export const updateAddressService = async (id: string, agentId: string, data: IU
     cep: updatedAddress.cep,
   };
 
-  return withoutAgent;
+  return formatedAddress;
 };
