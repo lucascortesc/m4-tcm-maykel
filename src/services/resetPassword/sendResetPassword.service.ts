@@ -24,9 +24,9 @@ export const sendResetPasswordService = async (
     }
   );
   const emailData: IEmailRequest = {
-    subject: "Password recovery",
-    text: `<h1>Password recovery requested by user</h1>
-     <h3>Hello ${agents.name}, use the follow link to change your password: https://password-recovery-cipad.vercel.app/recovery/${resetPasswordToken}</h3>`,
+    subject: "CIPAD - Recuperação de senha",
+    text: `<h1>Recuperação de senha solicitada pelo usuário</h1>
+     <h3>Olá ${agents.name}, use o link a seguir para trocar sua senha: <a>https://password-recovery-cipad.vercel.app/recovery/${resetPasswordToken}</a></h3>`,
     to: email,
   };
   await sendEmail(emailData);
