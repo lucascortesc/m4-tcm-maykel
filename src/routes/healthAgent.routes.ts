@@ -26,7 +26,7 @@ agentRoutes.patch(
   schemaValidation(updateAgentSchema),
   updateHealthAgentController
 );
-agentRoutes.patch("/agent/activate", authorization, activateHealthAgentController);
+agentRoutes.get("/agent/activate", authorization, activateHealthAgentController);
 agentRoutes.post("/agent/password", sendResetPasswordController);
 agentRoutes.patch("/agent/password/:token", schemaValidation(updateAgentSchema), resetPasswordController);
 

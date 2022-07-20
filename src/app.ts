@@ -6,6 +6,7 @@ import familyRoutes from "./routes/family.routes";
 import agentRoutes from "./routes/healthAgent.routes";
 import homeVisitRoutes from "./routes/homeVisit.routes";
 import { pacientRoutes } from "./routes/pacient.routes";
+import authRoutes from "./routes/auth.routes"
 
 const cors = require("cors");
 
@@ -17,6 +18,7 @@ app.use("/family", familyRoutes);
 app.use("/address", addressRoutes);
 app.use("/visits", homeVisitRoutes);
 app.use("/pacient", pacientRoutes);
+app.use("/", authRoutes)
 app.use(handleAppErrorMiddleware);
 
 export default app;
