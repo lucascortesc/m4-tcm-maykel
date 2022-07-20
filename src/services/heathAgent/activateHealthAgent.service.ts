@@ -22,7 +22,7 @@ export const activateHealthAgentService = async (id: string): Promise<string> =>
   const emailData: IEmailRequest = {
     subject: "CIPAD - Ativação de usuário",
     text: `<h1>Ativação solicitada pelo usuário<h1>
-          <h3>${agent.name}, ative sua conta clicando no link: <a>https://password-recovery-cipad.vercel.app/activate/${activationToken}</a> para utilizar o nosso sistema</h3>
+          <h3>${agent.name}, ative sua conta <a href="https://password-recovery-cipad.vercel.app/activate/${activationToken}" target="_blank">clicando aqui </a> para utilizar o nosso sistema</h3>
     `,
     to: agent.email,
   };
